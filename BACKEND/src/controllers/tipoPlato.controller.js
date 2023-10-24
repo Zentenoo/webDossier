@@ -55,7 +55,7 @@ const deleteTipoPlato = async (req, res, next) => {
 const editTipoPlato = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, PlatoId } = req.body;
+        const { nombre, descripcion } = req.body;
         const result = await pool.query("UPDATE TipoPlato SET nombre = $1, descripcion = $2 WHERE id = $3 RETURNING *",
             [
                 nombre,

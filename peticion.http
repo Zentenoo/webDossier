@@ -3,7 +3,7 @@ GET http://localhost:3000/tipo_plato
 GET http://localhost:3000/tipo_plato/1
 ###
 
-DELETE http://localhost:3000tipo_plato/5
+DELETE http://localhost:3000/tipo_plato/2
 
 ###
 
@@ -19,6 +19,6 @@ PUT http://localhost:3000/tipo_plato/1
 Content-Type: application/json
 
 {
-    "nombre":"plato 2",
-    "descripcion":"descripcion 2"
+    "nombre":"plato 1",
+    "descripcion":"descripcion 1"
 }

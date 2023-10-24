@@ -11,7 +11,7 @@ export const AppRouter = () => {
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/tipo_plato">Plato</a>
+                                <a class="nav-link" href="/tipo_plato">Tipo Plato</a>
                             </li>
                         </ul>
                     </div>
