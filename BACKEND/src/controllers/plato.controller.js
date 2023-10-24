@@ -1,13 +1,13 @@
 const pool = require('../db')
-const getAllPlatos = async (req, res) => {
+const getAllPlato = async (req, res,next) => {
     try {
         const allPlatos=await pool.query("Select * from plato")
         res.json(allPlatos.rows)
-    } catch {
-        res.status(404).send({ error: "Error" })
+    } catch (error){
+        next(error)
     }
 }
-const getPlato = async(req, res) => {
+const getPlato = async(req, res,next) => {
     try {
         const { id } = req.params
         const result = await pool.query("SELECT * FROM plato WHERE id=$1", [id])
@@ -17,12 +17,12 @@ const getPlato = async(req, res) => {
             });
         }
         res.json(result.rows[0]);
-    } catch {
-        res.status(404).send({ error: "Error" })
+    } catch(error) {
+        next(error)
     }
 }
 
-const createPlato =async (req, res) => {
+const createPlato =async (req, res,next) => {
     const { nombre, descripcion } = req.body
     try {
         const result = await pool.query("INSERT INTO plato (nombre,descripcion) VALUES ($1,$2) RETURNING *", [
@@ -30,12 +30,12 @@ const createPlato =async (req, res) => {
             descripcion
         ]);
         res.json(result.rows[0]);
-    } catch {
-        res.status(404).send({ error: "Error" })
+    } catch(error) {
+        next(error)
     }
 }
 
-const deletePlato = async(req, res) => {
+const deletePlato = async(req, res,next) => {
     try {
         const { id } = req.params
         const result = await pool.query("DELETE FROM plato WHERE id=$1 RETURNING *", [id])
@@ -45,12 +45,12 @@ const deletePlato = async(req, res) => {
             });
         }
         return res.sendStatus(204);
-    } catch {
-        res.status(404).send({ error: "Error" })
+    } catch(error) {
+        next(error)
     }
 }
 
-const editPlato = async(req, res) => {
+const editPlato = async(req, res,next) => {
     try {
         const { id } = req.params;
         const {nombre,descripcion} = req.body;
@@ -64,13 +64,13 @@ const editPlato = async(req, res) => {
             });
         }
         return res.json(result.rows[0])
-    } catch {
-        res.status(404).send({ error: "Error" })
+    } catch(error) {
+        next(error)
     }
 }
 
 module.exports = {
-    getAllPlatos,
+    getAllPlato,
     getPlato,
     createPlato,
     deletePlato,
