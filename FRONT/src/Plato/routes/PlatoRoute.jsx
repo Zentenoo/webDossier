@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom"
-import { PlatosList } from "../components/PlatoList"
+import { PlatoPage } from "../pages/PlatoPage"
 
 export const PlatoRoute=()=>{
     
     return(
         <>
             <Routes>
-                <Route path="/*" element={<PlatosList/>}></Route>
+                <Route path="/*" element={<PlatoPage/>}></Route>
             </Routes>
         </>
     )
