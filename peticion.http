@@ -1,14 +1,13 @@
-GET http://localhost:3000/plato
+GET http://localhost:3000/tipo_plato
 ###
-GET http://localhost:3000/plato/1
+GET http://localhost:3000/tipo_plato/1
 ###
 
-DELETE http://localhost:3000/plato/5
+DELETE http://localhost:3000tipo_plato/5
 
 ###
-# "estado":true,
-# "foto":"https://gastronomiabolivia.com/wp-content/uploads/saice-tarijeno-bolivia.jpg"
-POST http://localhost:3000/plato
+
+POST http://localhost:3000/tipo_plato
 Content-Type: application/json
 
 {
@@ -16,7 +15,7 @@ Content-Type: application/json
     "descripcion":"descripcion 1"
 }
 ###
-PUT http://localhost:3000/plato/1
+PUT http://localhost:3000/tipo_plato/1
 Content-Type: application/json
 
 {

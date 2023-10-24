@@ -1,6 +1,6 @@
 import {Routes, Route} from "react-router-dom"
 import { InicioRoutes } from "../inicio/InicioRoutes"
-import { PlatoRoute } from "../Plato/routes/PlatoRoute"
+import { TipoPlatoRoute } from "../TipoPlato/routes/TipoPlatoRoute"
 
 export const AppRouter = () => {
     return(
@@ -11,7 +11,7 @@ export const AppRouter = () => {
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/plato">Plato</a>
+                                <a class="nav-link" href="/tipo_plato">Plato</a>
                             </li>
                         </ul>
                     </div>
@@ -20,7 +20,7 @@ export const AppRouter = () => {
             </nav>
             <Routes>
                 <Route path="/*" element={<InicioRoutes/>}></Route>
-                <Route path="/plato/*" element={<PlatoRoute/>}></Route>
+                <Route path="/tipo_plato/*" element={<TipoPlatoRoute/>}></Route>
             </Routes>
         </>
     )

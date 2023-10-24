@@ -1,10 +1,10 @@
-import { PlatosList } from "../components/PlatoList"
+import { TipoPlatoList } from "../components/TipoPlatoList"
 
-export const PlatoPage=()=>{
+export const TipoPlatoPage=()=>{
     return (
         <>
           
-          <PlatosList/>
+          <TipoPlatoList/>
           <div class="container">
             <a class="btn btn-primary" href="/prenda/create">Crear Plato</a>
           </div>

@@ -4,14 +4,14 @@ const router = Router();
 
 
 
-router.get('/tipo_platos', getAllTipoPlato)
+router.get('/tipo_plato', getAllTipoPlato)
 
-router.get('/tipo_platos/:id', getTipoPlato)
+router.get('/tipo_plato/:id', getTipoPlato)
 
-router.post('/tipo_platos', createTipoPlato)
+router.post('/tipo_plato', createTipoPlato)
 
-router.delete('/tipo_platos/:id', deleteTipoPlato)
+router.delete('/tipo_plato/:id', deleteTipoPlato)
 
-router.put('/tipo_platos/:id', editTipoPlato)
+router.put('/tipo_plato/:id', editTipoPlato)
 
 module.exports = router;
