@@ -1,4 +1,5 @@
 import { getAllTipoPlato } from "../helpers/getAllTipoPlato"
+import { deleteTipoPlato } from "../helpers/deleteTipoPlato";
 import {  useEffect, useState } from "react"
 
 export const TipoPlatoList=()=>{
@@ -15,7 +16,18 @@ export const TipoPlatoList=()=>{
     useEffect(() => {
         getListPlato();
     },[])
-
+    
+      const handleDelete = async (id) => {
+        const success = await deleteTipoPlato(id);
+        if (success) {
+          // If deletion is successful, update the tipoPlatos state
+          setTipoPlato((prevTipoPlatos) => prevTipoPlatos.filter((plato) => plato.id !== id));
+        } else {
+          // Handle deletion failure (e.g., show an error message)
+          console.error("Failed to delete TipoPlato with ID: ", id);
+        }
+      };
+    
     return (
         <div class="container">
                 <h1>Lista de Tipo de Plato</h1>
@@ -36,8 +48,16 @@ export const TipoPlatoList=()=>{
                                 <td>{plato.id}</td>
                                 <td>{plato.nombre}</td>
                                 <td>{plato.descripcion}</td>
-                                <td><a onClick={() => navigate(`/plato/${plato.id}`)} className="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
-                                <td><button onClick={()=>eliminar(plato.id)} type="button" className="btn btn-danger"><i class="bi bi-trash"></i></button></td>
+                                <td><a onClick={() => navigate(`/tipo_plato/${plato.id}`)} className="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                    <button
+                                    onClick={() => handleDelete(plato.id)}
+                                    type="button"
+                                    className="btn btn-danger"
+                                    >
+                                    <i className="bi bi-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         )}
                         
