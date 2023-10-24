@@ -74,6 +74,8 @@ const editTipoPlato = async (req, res, next) => {
     }
 }
 
+
+
 module.exports = {
     getAllTipoPlato,
     getTipoPlato,
