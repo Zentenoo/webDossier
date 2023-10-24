@@ -2,8 +2,8 @@ import { getAllTipoPlato } from "../helpers/getAllTipoPlato"
 import {  useEffect, useState } from "react"
 
 export const TipoPlatoList=()=>{
-    const [tipoPlatos, setTipoPlato] = useState([]);
-    const getListPlato = async()=> {
+    const [tipoPlato, setTipoPlato] = useState([]);
+    const getListTipoPlato = async()=> {
         const data = await getAllTipoPlato();
         if (data == "error") {
             navigate(`../../`);
@@ -13,7 +13,7 @@ export const TipoPlatoList=()=>{
     };
 
     useEffect(() => {
-        getListPlato();
+        getListTipoPlato();
     },[])
 
     return (
@@ -31,7 +31,7 @@ export const TipoPlatoList=()=>{
                             </tr>
                     </thead>
                     <tbody>
-                        {tipoPlatos.map(plato => 
+                        {tipoPlato.map(plato => 
                             <tr key={plato.id}>
                                 <td>{plato.id}</td>
                                 <td>{plato.nombre}</td>

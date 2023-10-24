@@ -1,5 +1,7 @@
 GET http://localhost:3000/tipo_plato
 ###
+GET http://localhost:3000/plato
+###
 GET http://localhost:3000/tipo_plato/1
 ###
 
@@ -15,10 +17,21 @@ Content-Type: application/json
     "descripcion":"descripcion 1"
 }
 ###
-PUT http://localhost:3000/tipo_plato/1
+PUT http://localhost:3000/tipo_plato/3
+Content-Type: application/json
+
+{
+    "nombre":"plato 4",
+    "descripcion":"descripcion 4"
+}
+###
+POST   http://localhost:3000/plato
 Content-Type: application/json
 
 {
     "nombre":"plato 1",
-    "descripcion":"descripcion 1"
+    "descripcion":"descripcion 1",
+    "foto":"https://www.adslzone.net/app/uploads-adslzone.net/2019/04/borrar-fondo-imagen-1200x675.jpg",
+    "estado":false,
+    "tipoPlatoId":1
 }
