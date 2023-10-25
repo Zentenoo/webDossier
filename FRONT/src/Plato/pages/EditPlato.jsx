@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import { getAllTipoPlato } from "../../TipoPlato/helpers/getAllTipoPlato";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+export const EditPlato = () => {
 
-export const CreatePlatoPage = () => {
     const [tipoPlato, setTipoPlato] = useState([]);
-
+    const params=useParams()
     const getTipoPlatos = async () => {
         const data=await getAllTipoPlato();
         setTipoPlato(data);
@@ -15,10 +15,9 @@ export const CreatePlatoPage = () => {
       getTipoPlatos();  
     },[])
 
-
-    const onSubmit =async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:3000/plato", {
+        await axios.put(`http://localhost:3000/plato/${params.id}`, {
             "nombre": document.getElementById("strNombre").value,
             "descripcion": document.getElementById("strDescripcion").value,
             "estado": document.getElementById("boolEstado").value,
@@ -32,7 +31,7 @@ export const CreatePlatoPage = () => {
             <section class="d-flex justify-content-center ">
                 <div class="card col-sm-6 p-3">
                     <div class="mb-3">
-                        <h4>Crear Plato</h4>
+                        <h4>Editar Plato</h4>
                     </div>
                     <div class="mb-2">
                         <form onSubmit={onSubmit} action="">
@@ -66,7 +65,7 @@ export const CreatePlatoPage = () => {
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button className="btn btn-primary"  type="submit">Agregar</button>
+                                <button className="btn btn-primary" type="submit">Editar</button>
                                 <Link to="/plato" className="btn btn-secondary">Cancelar</Link>
                             </div>
                         </form>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import { getAllPlato } from "../helpers/getAllPlato";
 import { deletePlato } from "../helpers/deletePlato";
+import { useNavigate } from "react-router-dom";
 export const PlatoList = () => {
     const [plato, setPlato] = useState([]);
+    const navigate=useNavigate()
     const getListPlato = async () => {
         const data = await getAllPlato();
         if (data == "error") {
