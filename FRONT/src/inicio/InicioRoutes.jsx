@@ -1,7 +1,7 @@
 export const InicioRoutes = () => {
     return (
       <div>
-        hola
+        Inicio
       </div>
     )
   }
