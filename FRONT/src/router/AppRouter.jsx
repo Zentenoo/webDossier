@@ -3,6 +3,9 @@ import { InicioRoutes } from "../inicio/InicioRoutes";
 import { TipoPlatoRoute } from "../TipoPlato/routes/TipoPlatoRoute";
 import { EditTipoPlatoPage } from "../TipoPlato/pages/EditTipoPlatoPage";
 import { CreateTipoPlatoPage } from "../TipoPlato/pages/CreateTipoPlatoPage";
+import { ServicioRoute } from "../Servicios/routes/ServicioRoute";
+import { CreateServicioPage } from "../Servicios/pages/CreateServicioPage";
+import { EditServicioPage } from "../Servicios/pages/EditServicioPage";
 
 export const AppRouter = () => {
   return (
@@ -19,6 +22,9 @@ export const AppRouter = () => {
                 <Link to="/tipo_plato" className="nav-link">
                   Tipo Plato
                 </Link>
+                <Link to="/Servicio" className="nav-link">
+                  Servicio
+                </Link>
               </li>
             </ul>
           </div>
@@ -30,6 +36,9 @@ export const AppRouter = () => {
         {/* Ruta para la edición de tipo de plato */}
         <Route path="/tipo_plato/edit/:id" element={<EditTipoPlatoPage />} />
         <Route path="/tipo_plato/create" element={<CreateTipoPlatoPage />} />
+        <Route path="/servicio/*" element={<ServicioRoute />} />
+        <Route path="/servicio/edit/:id" element={<EditServicioPage />} />
+        <Route path="/servicio/create" element={<CreateServicioPage />} />
       </Routes>
     </>
   );
