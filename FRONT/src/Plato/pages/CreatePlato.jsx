@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import { getAllTipoPlato } from "../../TipoPlato/helpers/getAllTipoPlato";
+import { Link } from 'react-router-dom';
+
 export const CreatePlatoPage = () => {
     const [tipoPlato, setTipoPlato] = useState([]);
 
@@ -13,14 +15,17 @@ export const CreatePlatoPage = () => {
       getTipoPlatos();  
     },[])
 
-    const onSubmit = () => {
-        axios.post("http://localhost:3000/plato", {
+
+    const onSubmit =async (e) => {
+        e.preventDefault();
+        await axios.post("http://localhost:3000/plato", {
             "nombre": document.getElementById("strNombre").value,
             "descripcion": document.getElementById("strDescripcion").value,
             "estado": document.getElementById("boolEstado").value,
             "foto": document.getElementById("strFoto").value,
             "tipoPlatoId": document.getElementById("strTipoPlatoId").value,
         })
+        window.location.href = "/plato";
     }
     return (
         <div class="container mt-10">
@@ -61,7 +66,8 @@ export const CreatePlatoPage = () => {
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <button className="btn btn-primary" type="submit">Agregar</button>
+                                <button className="btn btn-primary"  type="submit">Agregar</button>
+                                <Link to="/plato" className="btn btn-secondary">Cancelar</Link>
                             </div>
                         </form>
                     </div>

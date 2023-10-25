@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllPlato } from "../helpers/getAllPlato";
+import { deletePlato } from "../helpers/deletePlato";
 export const PlatoList = () => {
     const [plato, setPlato] = useState([]);
     const getListPlato = async () => {
@@ -14,6 +15,11 @@ export const PlatoList = () => {
     useEffect(() => {
         getListPlato();
     }, [])
+
+    const eliminar=async(id)=>{
+        deletePlato(id)
+        getListPlato();
+    };
 
     console.log(plato)
     return (

@@ -2,7 +2,7 @@ const pool = require('../db');
 
 const getAllTipoPlato = async (req, res, next) => {
     try {
-        const allTipoPlatos = await pool.query("SELECT * FROM TipoPlato");
+        const allTipoPlatos = await pool.query("SELECT * FROM TipoPlato ORDER BY 1");
         res.json(allTipoPlatos.rows);
     } catch (error) {
         next(error);

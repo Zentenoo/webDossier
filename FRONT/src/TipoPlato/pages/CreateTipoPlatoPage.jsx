@@ -17,7 +17,6 @@ export const CreateTipoPlatoPage = () => {
     const exito = await createTipoPlato(nuevoTipoPlato);
 
     if (exito) {
-      // Redirige a la página de lista de tipos de plato después de la creación
       window.location.href = "/tipo_plato";
     } else {
       setError("Error al crear el tipo de plato");

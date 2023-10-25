@@ -9,9 +9,8 @@ export const TipoPlatoRoute=()=>{
         <>
             <Routes>
                 <Route path="/*" element={<TipoPlatoPage/>}></Route>
-                <Route path="/tipo_plato/edit/:id" element={<EditTipoPlatoPage/>}></Route>
-                <Route path="/tipo_plato/create" element={<CreateTipoPlatoPage/>}></Route>
-
+                <Route path="/edit/:id" element={<EditTipoPlatoPage/>}></Route>
+                <Route path="/create" element={<CreateTipoPlatoPage/>}></Route>
             </Routes>
         </>
     )
