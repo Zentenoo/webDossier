@@ -5,6 +5,7 @@ const cors=require('cors')
 const platosRoute=require('./routes/plato.route');
 const tipoPlato=require('./routes/tipoPlato.route')
 const servicio=require('./routes/servicio.route')
+const usuarioRoute=require('./routes/usuario.route')
 
 const port=3000
 
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use(platosRoute)
 app.use(tipoPlato)
 app.use(servicio)
+app.use(usuarioRoute)
+
 app.use((err,req,res,next)=>{
     return res.json({
         message:err.message
