@@ -5,58 +5,50 @@ import { deletePlato } from "../helpers/deletePlato";
 export const PlatoList = () => {
     const [plato, setPlato] = useState([]);
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const getListPlato = async () => {
         const data = await getAllPlato();
         if (data == "error") {
             navigate(`../../`);
-        }else {
+        } else {
             setPlato(data);
         }
     };
     useEffect(() => {
         getListPlato();
-    },[])
+    }, [])
 
-    const eliminar=async(id)=>{
+
+    const eliminar = async (id) => {
         await deletePlato(id);
-        if(s)
-        getAllPlato();
+        getListPlato();
     }
 
     return (
-        <div class="container">
-                <h1>Lista de Platos</h1>
-                <hr></hr>
-                <table class="table table-dark table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Descipción</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Foto</th>
-                            <th scope="col">Tipo Plato</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            </tr>
-                    </thead>
-                    <tbody>
-                        {plato.map(plato => 
-                            <tr key={plato.id}>
-                                <td>{plato.id}</td>
-                                <td>{plato.nombre}</td>
-                                <td>{plato.descripcion}</td>
-                                {plato.estado ? <td><i class="bi bi-check-circle"></i></td> : <td><i class="bi bi-x-circle"></i></td>}
-                                <td><img src={plato.foto}width="50px" height="50px"/></td>
-                                <td>{plato.tipoplato}</td>
-                                <td><a onClick={() => navigate(`/plato/${plato.id}`)} className="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>
-                                <td><button onClick={()=>eliminar(plato.id)} type="button" className="btn btn-danger"><i class="bi bi-trash"></i></button></td>
-                            </tr>
-                            )}
-                        
-                    </tbody>
-                </table>
+        <div className="container">
+            <div className="row">
+                {plato.map(plato => (
+                    <div className="col-lg-4 mb-4" key={plato.id}>
+                        <div className="card">
+                            <img src={plato.foto} className="card-img-top" style={{ width: "100%", height: "200px", objectFit: "cover" }} alt={plato.nombre} />
+                            <div className="card-body">
+                                <h5 className="card-title">{plato.nombre}</h5>
+                                <p className="card-text">{plato.descripcion}</p>
+                                <p className="card-text">Tipo de Plato: {plato.tipoplato}</p>
+                                <p className="card-text">
+                                    Estado: {plato.estado ? <i className="bi bi-check-circle"></i> : <i className="bi bi-x-circle"></i>}
+                                </p>
+                                <div className="d-flex justify-content-between">
+                                    <a onClick={() => navigate(`/plato/${plato.id}`)} className="btn btn-primary"><i className="bi bi-pencil-square"></i> Editar</a>
+                                    <button onClick={async () => await eliminar(plato.id)} type="button" className="btn btn-danger"><i className="bi bi-trash"></i> Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
+        </div>
     )
 }
+
+

@@ -47,18 +47,18 @@ export const UsuarioActualizar = () => {
     };
 
     return (
-        <div class="container mt-10">
-            <section class="d-flex justify-content-center">
-                <div class="card col-sm-6 p-3">
-                    <div class="mb-3">
+        <div className="container mt-10">
+            <section className="d-flex justify-content-center">
+                <div className="card col-sm-6 p-3">
+                    <div className="mb-3">
                         <h4>Editar Usuario</h4>
                     </div>
-                    <div class="mb-2">
+                    <div className="mb-2">
                         <form onSubmit={onSubmit} action="">
-                            <div class="mb-3">
-                                <label htmlFor="nombre" class="form-label">Nombre</label>
+                            <div className="mb-3">
+                                <label htmlFor="nombre" className="form-label">Nombre</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="text"
                                     id="nombre"
                                     name="nombre"
@@ -67,10 +67,10 @@ export const UsuarioActualizar = () => {
                                     required
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="contrasena" class="form-label">Contraseña</label>
+                            <div className="mb-3">
+                                <label htmlFor="contrasena" className="form-label">Contraseña</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="password"
                                     id="contraseña"
                                     name="contraseña"
@@ -79,10 +79,10 @@ export const UsuarioActualizar = () => {
                                     required
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="apellido" class="form-label">Apellido</label>
+                            <div className="mb-3">
+                                <label htmlFor="apellido" className="form-label">Apellido</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="text"
                                     id="apellido"
                                     name="apellido"
@@ -91,10 +91,10 @@ export const UsuarioActualizar = () => {
                                     required
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="telefono" class="form-label">Teléfono</label>
+                            <div className="mb-3">
+                                <label htmlFor="telefono" className="form-label">Teléfono</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="tel"
                                     id="telefono"
                                     name="telefono"
@@ -102,10 +102,10 @@ export const UsuarioActualizar = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="correo" class="form-label">Correo</label>
+                            <div className="mb-3">
+                                <label htmlFor="correo" className="form-label">Correo</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="email"
                                     id="correo"
                                     name="correo"
@@ -114,20 +114,20 @@ export const UsuarioActualizar = () => {
                                     required
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor='estado' class="form-label">Estado: </label>
+                            <div className="mb-3">
+                                <label htmlFor='estado' className="form-label">Estado: </label>
                                 <select
                                     id='estado'
                                     name='estado'
                                     value={usuarioData.estado}
                                     onChange={handleInputChange}
-                                    class="form-select"
+                                    className="form-select"
                                 >
                                     <option value={true}>Activo</option>
                                     <option value={false}>Inactivo</option>
                                 </select>
                             </div>
-                            <div class="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Editar</button>
                                 <Link to="/usuario" className="btn btn-secondary">Cancelar</Link>
                             </div>

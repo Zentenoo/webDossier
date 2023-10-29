@@ -8,21 +8,21 @@ import { PlatoRoutes } from "../Plato/routes/PlatoRoutes"
 export const AppRouter = () => {
     return(
         <>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">DossierUdi</a>
-                    <div class="navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/plato">Plato</a>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="/">DossierUdi</a>
+                    <div className="navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                        <li className="nav-item">
+                                <a className="nav-link" href="/tipo_plato">Tipo Plato</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/tipo_plato">Tipo Plato</a>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/plato">Plato</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/usuario">Usuario</a>
-                            </li><li class="nav-item">
-                                <a class="nav-link" href="/servicios">Servicio</a>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/usuario">Usuario</a>
+                            </li><li className="nav-item">
+                                <a className="nav-link" href="/servicios">Servicio</a>
                             </li>
                         </ul>
                     </div>

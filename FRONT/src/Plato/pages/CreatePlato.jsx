@@ -28,36 +28,36 @@ export const CreatePlatoPage = () => {
         window.location.href = "/plato";
     }
     return (
-        <div class="container mt-10">
-            <section class="d-flex justify-content-center ">
-                <div class="card col-sm-6 p-3">
-                    <div class="mb-3">
+        <div className="container mt-10">
+            <section className="d-flex justify-content-center ">
+                <div className="card col-sm-6 p-3">
+                    <div className="mb-3">
                         <h4>Crear Plato</h4>
                     </div>
-                    <div class="mb-2">
+                    <div className="mb-2">
                         <form onSubmit={onSubmit} action="">
-                            <div class="mb-3">
-                                <label htmlFor="strNombre" class="form-label">Nombre</label>
-                                <input class="form-control" type="text" id="strNombre" name="strNombre" required />
+                            <div className="mb-3">
+                                <label htmlFor="strNombre" className="form-label">Nombre</label>
+                                <input className="form-control" type="text" id="strNombre" name="strNombre" required />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="strDescripcion" class="form-label">Descripción</label>
-                                <input class="form-control" type="text" id="strDescripcion" name="strDescripcion" required />
+                            <div className="mb-3">
+                                <label htmlFor="strDescripcion" className="form-label">Descripción</label>
+                                <input className="form-control" type="text" id="strDescripcion" name="strDescripcion" required />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="strFoto" class="form-label">Foto</label>
-                                <input class="form-control" type="text" id="strFoto" name="strFoto" />
+                            <div className="mb-3">
+                                <label htmlFor="strFoto" className="form-label">Foto</label>
+                                <input className="form-control" type="text" id="strFoto" name="strFoto" />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor='boolEstado' class="form-label">Estado: </label>
-                                <select id='boolEstado' name='boolEstado' defaultValue="Activo" class="form-select">
+                            <div className="mb-3">
+                                <label htmlFor='boolEstado' className="form-label">Estado: </label>
+                                <select id='boolEstado' name='boolEstado' defaultValue="Activo" className="form-select">
                                     <option value={true}>Activo</option>
                                     <option value={false}>Inactivo</option>
                                 </select>
                             </div>
-                            <div class="d-flex justify-content-evenly">
-                                <div class="mb-3">
-                                    <label htmlFor="strTipoPlatoId" class="form-label">Tipo: </label>
+                            <div className="d-flex justify-content-evenly">
+                                <div className="mb-3">
+                                    <label htmlFor="strTipoPlatoId" className="form-label">Tipo: </label>
                                     <select id="strTipoPlatoId" className='form-select-sm'>
                                         {tipoPlato.map(tipoPlato =>
                                             <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre} </option>
@@ -65,7 +65,7 @@ export const CreatePlatoPage = () => {
                                     </select>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary"  type="submit">Agregar</button>
                                 <Link to="/plato" className="btn btn-secondary">Cancelar</Link>
                             </div>
