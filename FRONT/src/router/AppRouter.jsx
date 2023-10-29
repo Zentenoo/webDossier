@@ -1,22 +1,28 @@
 import {Routes, Route} from "react-router-dom"
 import { InicioRoutes } from "../inicio/InicioRoutes"
-import { PlatoRoute } from "../Plato/routes/PlatoRoute"
 import { UsuariosRoute } from "../Usuario/routes/UsuarioRoute"
-import { UsuarioCrear } from "../Usuario/components/UsuarioCrear"
-import { UsuarioActualizar } from "../Usuario/components/UsuarioActualizar"
+import { TipoPlatoRoute } from "../TipoPlato/routes/TipoPlatoRoute"
+import { ServicioRoute } from "../Servicios/routes/ServicioRoute"
+import { PlatoRoutes } from "../Plato/routes/PlatoRoutes"
+
 export const AppRouter = () => {
     return(
         <>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">DossierUdi</a>
-                    <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="/plato">Plato</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="/tipo_plato">Tipo Plato</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="/usuario">Usuario</a>
+                            </li><li class="nav-item">
+                                <a class="nav-link" href="/servicios">Servicio</a>
                             </li>
                         </ul>
                     </div>
@@ -25,10 +31,10 @@ export const AppRouter = () => {
             </nav>
                 <Routes>
                     <Route path="/*" element={<InicioRoutes/>}></Route>
-                    <Route path="/plato/*" element={<PlatoRoute/>}></Route>
+                    <Route path="/plato/*" element={<PlatoRoutes/>}></Route>
+                    <Route path="/tipo_plato/*" element={<TipoPlatoRoute/>}></Route>
                     <Route path="/usuario/*" element={<UsuariosRoute/>}></Route>
-                    <Route path="/usuario/crear/" element={<UsuarioCrear/>}></Route>
-                    <Route path="/usuario/actualizar/:id/" element={<UsuarioActualizar/>}></Route>
+                    <Route path="/servicios/*" element={<ServicioRoute/>}></Route>
                 </Routes>
         </>
     )

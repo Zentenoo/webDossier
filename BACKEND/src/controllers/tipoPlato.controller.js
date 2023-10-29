@@ -1,8 +1,8 @@
 const pool = require('../db');
 
-const getAllTipoPlatos = async (req, res, next) => {
+const getAllTipoPlato = async (req, res, next) => {
     try {
-        const allTipoPlatos = await pool.query("SELECT * FROM TipoPlato");
+        const allTipoPlatos = await pool.query("SELECT * FROM TipoPlato ORDER BY 1");
         res.json(allTipoPlatos.rows);
     } catch (error) {
         next(error);
@@ -25,12 +25,11 @@ const getTipoPlato = async (req, res, next) => {
 }
 
 const createTipoPlato = async (req, res, next) => {
-    const { nombre, descripcion, PlatoId } = req.body;
+    const { nombre, descripcion } = req.body;
     try {
-        const result = await pool.query("INSERT INTO TipoPlato (nombre, descripcion, PlatoId) VALUES ($1, $2, $3) RETURNING *", [
+        const result = await pool.query("INSERT INTO TipoPlato (nombre, descripcion) VALUES ($1, $2) RETURNING *", [
             nombre,
             descripcion,
-            PlatoId
         ]);
         res.json(result.rows[0]);
     } catch (error) {
@@ -56,12 +55,11 @@ const deleteTipoPlato = async (req, res, next) => {
 const editTipoPlato = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, PlatoId } = req.body;
-        const result = await pool.query("UPDATE TipoPlato SET nombre = $1, descripcion = $2, PlatoId = $3 WHERE id = $4 RETURNING *",
+        const { nombre, descripcion } = req.body;
+        const result = await pool.query("UPDATE TipoPlato SET nombre = $1, descripcion = $2 WHERE id = $3 RETURNING *",
             [
                 nombre,
                 descripcion,
-                PlatoId,
                 id
             ]
         );
@@ -76,8 +74,10 @@ const editTipoPlato = async (req, res, next) => {
     }
 }
 
+
+
 module.exports = {
-    getAllTipoPlatos,
+    getAllTipoPlato,
     getTipoPlato,
     createTipoPlato,
     deleteTipoPlato,

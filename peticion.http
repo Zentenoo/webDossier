@@ -1,6 +1,6 @@
 GET http://localhost:3000/plato
 ###
-GET http://localhost:3000/plato/1
+GET http://localhost:3000/tipo_plato
 ###
 
 DELETE http://localhost:3000/plato/5
@@ -16,7 +16,7 @@ Content-Type: application/json
     "descripcion":"descripcion 1"
 }
 ###
-PUT http://localhost:3000/plato/1
+POST  http://localhost:3000/servicios
 Content-Type: application/json
 
 {

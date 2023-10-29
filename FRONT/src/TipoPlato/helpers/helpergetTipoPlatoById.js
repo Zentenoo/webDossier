@@ -12,6 +12,6 @@ export async function getTipoPlatoById(id) {
     return tipoPlato;
   } catch (error) {
     console.error(`Error al obtener el tipo de plato con ID ${id}: ${error.message}`);
-    return null; // Maneja errores, por ejemplo, retornando null en caso de error
+    return null;
   }
 }

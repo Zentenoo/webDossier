@@ -39,7 +39,6 @@ export const EditTipoPlatoPage = () => {
 
     try {
       await editTipoPlato(id, nombre, descripcion);
-      // Navegar de regreso a la página de lista de tipos de plato
       window.location.href = "/tipo_plato";
     } catch (error) {
       setError("Error al guardar los cambios");
@@ -47,7 +46,6 @@ export const EditTipoPlatoPage = () => {
   };
 
   const handleCancelar = () => {
-    // Navegar de regreso a la página de lista de tipos de plato sin guardar cambios
     window.location.href = "/tipo_plato";
   };
 

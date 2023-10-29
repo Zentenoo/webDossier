@@ -2,18 +2,25 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 import { getAllTipoPlato } from "../../TipoPlato/helpers/getAllTipoPlato";
 import { Link, useParams } from 'react-router-dom';
+import { getPlato } from "../helpers/getPlato";
 export const EditPlato = () => {
 
     const [tipoPlato, setTipoPlato] = useState([]);
-    const params=useParams()
+    const [plato, setPlato] = useState([]);
+    const params = useParams()
     const getTipoPlatos = async () => {
-        const data=await getAllTipoPlato();
+        const data = await getAllTipoPlato();
         setTipoPlato(data);
+    }
+    const getListPlato = async (id) => {
+        const data = await getPlato(id);
+        setPlato(data);
     }
 
     useEffect(() => {
-      getTipoPlatos();  
-    },[])
+        getTipoPlatos();
+        getListPlato(params.id)
+    }, [params.id])
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -37,19 +44,19 @@ export const EditPlato = () => {
                         <form onSubmit={onSubmit} action="">
                             <div class="mb-3">
                                 <label htmlFor="strNombre" class="form-label">Nombre</label>
-                                <input class="form-control" type="text" id="strNombre" name="strNombre" required />
+                                <input class="form-control" type="text" id="strNombre" name="strNombre" defaultValue={plato.nombre}required />
                             </div>
                             <div class="mb-3">
                                 <label htmlFor="strDescripcion" class="form-label">Descripción</label>
-                                <input class="form-control" type="text" id="strDescripcion" name="strDescripcion" required />
+                                <input class="form-control" type="text" id="strDescripcion" name="strDescripcion" defaultValue={plato.descripcion} required />
                             </div>
                             <div class="mb-3">
                                 <label htmlFor="strFoto" class="form-label">Foto</label>
-                                <input class="form-control" type="text" id="strFoto" name="strFoto" />
+                                <input class="form-control" type="text" id="strFoto" defaultValue={plato.foto} name="strFoto" />
                             </div>
                             <div class="mb-3">
                                 <label htmlFor='boolEstado' class="form-label">Estado: </label>
-                                <select id='boolEstado' name='boolEstado' defaultValue="Activo" class="form-select">
+                                <select id='boolEstado' name='boolEstado' class="form-select">
                                     <option value={true}>Activo</option>
                                     <option value={false}>Inactivo</option>
                                 </select>
