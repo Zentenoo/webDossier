@@ -9,7 +9,7 @@ export const CreateServicioPage = () => {
   const [fechaFin, setFechaFin] = useState("");
   const [cupo, setCupo] = useState(0);
   const [precio, setPrecio] = useState(0);
-  const [foto, setFoto] = useState("");
+  const [foto, setFoto] = useState(null);
   const [error, setError] = useState("");
 
   const handleCrearServicio = async () => {
@@ -25,17 +25,26 @@ export const CreateServicioPage = () => {
       fechaFin,
       cupo,
       precio,
-      foto,
+      foto: foto ? await convertToBase64(foto) : null,
     };
     const exito = await createServicio(nuevoServicio);
 
     if (exito) {
       // Redirige a la página de lista de servicios después de la creación
-      window.location.href = "/Servicio";
+      window.location.href = "/servicios";
     } else {
       setError("Error al crear el servicio");
     }
   };
+    // Función para convertir el archivo a Base64
+    const convertToBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file);
+      });
+    };
 
   return (
     <div className="container">
@@ -112,7 +121,7 @@ export const CreateServicioPage = () => {
       <button className="btn btn-primary" onClick={handleCrearServicio}>
         Crear Servicio
       </button>
-      <Link to="/Servicio" className="btn btn-secondary">
+      <Link to="/servicios" className="btn btn-secondary">
         Cancelar
       </Link>
     </div>

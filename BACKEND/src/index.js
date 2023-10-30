@@ -11,7 +11,7 @@ const port=3000
 
 
 const app=express();
-
+app.use(express.json({ limit: '10mb' })); // Aumenta el límite de carga a 10 MB
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json());

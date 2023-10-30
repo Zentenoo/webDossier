@@ -2,12 +2,29 @@ const pool = require('../db')
 
 const getAllServicios = async (req, res, next) => {
     try {
-        const allServicios = await pool.query("Select * from servicio")
-        res.json(allServicios.rows)
-    } catch (error){
-        next(error)
+        const allServicios = await pool.query("Select * from servicio");
+
+        // Formatear las fechas en un formato adecuado antes de enviar la respuesta
+        const serviciosWithFormattedDates = allServicios.rows.map((servicio) => ({
+            id: servicio.id,
+            nombre: servicio.nombre,
+            descripcion: servicio.descripcion,
+            fechaInicio: servicio.fechainicio.toISOString().split('T')[0],
+            fechaFin: servicio.fechafin.toISOString().split('T')[0],
+            cupo: servicio.cupo,
+            precio: servicio.precio,
+            foto: servicio.foto,
+        }));
+
+        // Agregar un registro de impresión para verificar las fechas formateadas
+        console.log("Servicios con fechas formateadas:", serviciosWithFormattedDates);
+
+        res.json(serviciosWithFormattedDates);
+    } catch (error) {
+        next(error);
     }
 }
+
 
 const getServicio = async(req, res, next) => {
     try {
