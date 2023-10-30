@@ -57,14 +57,9 @@ export const UsuariosList = () => {
                             <td>{usuario.Correo}</td>
                             <td><img src={usuario.Foto} alt={`${usuario.nombre}`} width="100" height="100"/></td>
                             <td>{usuario.Estado ? "Activo" : "Inactivo"}</td>
-<<<<<<< Updated upstream
-                            {/* <td>{usuario.Foto}</td> */}
-                            <td><a onClick={()=>navigate(`/usuario/actualizar/${usuario.id}`)} className="btn btn-primary"><i className="bi bi-pencil-square"></i></a></td>
-=======
                             <td>{usuario.EsAdmin ? "Activo" : "Inactivo"}</td>
                             <td>{usuario.EsAnfitrion ? "Activo" : "Inactivo"}</td>
-                            <td><a onClick={()=>navigate(`/usuario/${usuario.id}`)} className="btn btn-primary"><i className="bi bi-pencil-square"></i></a></td>
->>>>>>> Stashed changes
+                            <td><a onClick={()=>navigate(`/usuario/${usuario.id}`)} className="btn btn- primary"><i className="bi bi-pencil-square"></i></a></td>
                             <td><button onClick={() => handleEliminarUsuario(usuario.id)} type="button" className="btn btn-danger"><i className="bi bi-trash"></i></button></td>
                         </tr>
                     )}
