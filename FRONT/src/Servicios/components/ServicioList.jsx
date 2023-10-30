@@ -9,7 +9,8 @@ import esLocale from 'date-fns/locale/es';
 export const ServicioList = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-
+    date.setDate(date.getDate() + 1); // Suma un día para corregir la diferencia
+  
     return format(date, 'dd MMMM', { locale: esLocale });
   };
 
@@ -44,22 +45,21 @@ export const ServicioList = () => {
 
   return (
     <div className="container">
-      <h1 className="mt-4">Lista de Servicios</h1>
-      <hr />
+      <br />
       <div className="row">
         {servicios.map((servicio) => (
           <div className="col-md-3 mb-4" key={servicio.id}>
-            <div className="card">
-              <div className="card-header bg-danger text-white">
-                {servicio.fechaInicio} | {servicio.fechaFin}
+            <div className="card" style={{ height: "100%" }}>
+              <div className="card-header bg-danger text-white" style={{ textAlign: 'center', fontSize: '15px' }}>
+                <strong>{servicio.fechaInicio} | {servicio.fechaFin}</strong>
               </div>
-              <img src={servicio.foto} className="card-img-top" alt={servicio.nombre} />
-              <div className="card-body">
+              <img src={servicio.foto} className="card-img-top" alt={servicio.nombre} style={{ objectFit: 'cover', height: '200px' }} />
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <h4 className="card-title font-weight-bold">{servicio.nombre}</h4>
-                <p className="card-text small">{servicio.descripcion}</p>
+                <p className="card-text small" style={{ fontSize: '10px' }}>{servicio.descripcion}</p>
                 <hr />
-                <p className="card-text small">Cupo: {servicio.cupo}</p>
-                <p className="card-text small">Precio: {servicio.precio}</p>
+                <p className="card-text small" >Cupos: <strong style={{ fontSize: '17px', color: 'green' }}>{servicio.cupo}</strong></p>
+                <p className="card-text small">Precio: {servicio.precio}Bs</p>
                 <div className="d-flex justify-content-between align-items-center">
                   <Link to={`/servicios/edit/${servicio.id}`} className="btn btn-primary small">
                     <FaEdit /> Editar
