@@ -1,8 +1,8 @@
 const pool = require('../db');
 
-const estado = false; 
-const ES_ADMIN = false; 
-const ES_ANFITRION = false; 
+const estado = true; 
+const esadmin = false; 
+const esanfitrion = false; 
 
 const getAllUsuarios = async (req, res, next) => {
     try {
@@ -48,8 +48,8 @@ const createUsuario = async (req, res, next) => {
                 telefono,
                 correo,
                 estado, 
-                ES_ADMIN,
-                ES_ANFITRION, 
+                esadmin,
+                esanfitrion, 
                 foto
             ]
         );
@@ -82,6 +82,9 @@ const editUsuario = async (req, res, next) => {
         apellido,
         telefono,
         correo,
+        estado,
+        esadmin,
+        esanfitrion,
         foto
     } = req.body;
 
@@ -95,8 +98,8 @@ const editUsuario = async (req, res, next) => {
                 telefono,
                 correo,
                 estado,
-                ES_ADMIN,
-                ES_ANFITRION,
+                esadmin,
+                esanfitrion,
                 foto,
                 id
             ]

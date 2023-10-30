@@ -10,6 +10,9 @@ export const UsuarioActualizar = () => {
         telefono: "",
         correo: "",
         estado: true, 
+        esadmin: false,
+        esanfitrion:false,
+        foto: ""
     });
 
     const params = useParams();
@@ -19,6 +22,7 @@ export const UsuarioActualizar = () => {
             try {
                 const response = await axios.get(`http://localhost:3000/usuario/${params.id}`);
                 const userData = response.data;
+                console.log(userData)
                 setUsuarioData(userData);
             } catch (error) {
                 console.error("Error al obtener los datos del usuario:", error);
@@ -42,9 +46,24 @@ export const UsuarioActualizar = () => {
         const { name, value } = e.target;
         setUsuarioData({
             ...usuarioData,
-            [name]: value,
+            [name]: value === "true", 
         });
+    }
+    const handleFileChange = (e) => {
+        const file = e.target.files[0]; 
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64String = e.target.result;
+                setUsuarioData({
+                    ...usuarioData,
+                    foto: base64String, 
+                });
+            };
+            reader.readAsDataURL(file);
+        }
     };
+    
 
     return (
         <div className="container mt-10">
@@ -114,20 +133,69 @@ export const UsuarioActualizar = () => {
                                     required
                                 />
                             </div>
-                            <div className="mb-3">
-                                <label htmlFor='estado' className="form-label">Estado: </label>
+                            <div class="mb-3">
+                                <label htmlFor="foto" class="form-label">Foto Nueva</label>
+                                <input
+                                    class="form-control"
+                                    type="file"
+                                    id="foto"
+                                    name="foto"
+                                    onChange={handleFileChange}
+                                />
+                            </div>
+                            {usuarioData.foto && (
+                                <div className="mb-3">
+                                    <label className="form-label">Foto Actual: </label>
+                                    <img
+                                        src={usuarioData.foto}
+                                        alt="Foto Actual"
+                                        style={{ maxWidth: "100px", maxHeight: "100px" }}
+                                    />
+                                </div>
+                            )}
+                            <div class="mb-3">
+                                <label htmlFor='estado' class="form-label">Estado: </label>
                                 <select
                                     id='estado'
                                     name='estado'
-                                    value={usuarioData.estado}
+                                    value={usuarioData.estado ? "true" :"false"}
                                     onChange={handleInputChange}
                                     className="form-select"
                                 >
-                                    <option value={true}>Activo</option>
-                                    <option value={false}>Inactivo</option>
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
                                 </select>
                             </div>
-                            <div className="d-flex justify-content-between">
+
+                            <div class="mb-3">
+                                <label htmlFor='esadmin' class="form-label">Admin: </label>
+                                <select
+                                    id='esadmin'
+                                    name='esadmin'
+                                    value={usuarioData.esadmin ? "true" :"false"}
+                                    onChange={handleInputChange}
+                                    class="form-select"
+                                >
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label htmlFor='esanfitrion' class="form-label">Anfitrion: </label>
+                                <select
+                                    id='esanfitrion'
+                                    name='esanfitrion'
+                                    value={usuarioData.esanfitrion ? "true" :"false"}
+                                    onChange={handleInputChange}
+                                    class="form-select"
+                                >
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Editar</button>
                                 <Link to="/usuario" className="btn btn-secondary">Cancelar</Link>
                             </div>
