@@ -6,7 +6,6 @@ import { getPlato } from "../helpers/getPlato";
 
 export const EditPlato = () => {
 
-    const [plato, setPlato] = useState([]);
     const [tipoPlato, setTipoPlato] = useState([]);
     const params = useParams();
     const getTipoPlatos = async () => {
@@ -16,7 +15,6 @@ export const EditPlato = () => {
 
     const getListPlato = async (id) => {
         const data = await getPlato(id);
-        setPlato(data)
         return data;
     };
 

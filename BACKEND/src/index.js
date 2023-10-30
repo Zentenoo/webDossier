@@ -6,7 +6,7 @@ const platosRoute=require('./routes/plato.route');
 const tipoPlato=require('./routes/tipoPlato.route')
 const servicio=require('./routes/servicio.route')
 const usuarioRoute=require('./routes/usuario.route')
-
+const productoRoute=require('./routes/producto.route')
 const port=3000
 
 
@@ -16,6 +16,7 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json());
 
+app.use(productoRoute)
 app.use(platosRoute)
 app.use(tipoPlato)
 app.use(servicio)
