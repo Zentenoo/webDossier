@@ -6,7 +6,7 @@ export const ServicioPage = () => {
     <>
       <ServicioList />
       <div className="container">
-        <Link to="/servicio/create" className="btn btn-primary">
+        <Link to="/servicios/create" className="btn btn-primary">
           Crear Servicio
         </Link>
       </div>
