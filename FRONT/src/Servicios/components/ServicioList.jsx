@@ -73,12 +73,27 @@ export const ServicioList = () => {
                   <Link to={`/servicios/edit/${servicio.id}`} className="btn btn-primary small">
                     <FaEdit /> Editar
                   </Link>
-                  <button onClick={() => handleDelete(servicio.id)} className="btn btn-danger small">
-                    <FaTrash /> Eliminar
-                  </button>
-                  {/* <Link to={`/servicios/add/${servicio.id}`} className="btn btn-success small">
-                    <FaPlusCircle /> Agregar
-                  </Link> */}
+                  <div>
+                    <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${servicio.id}`}>
+                      <i className="bi bi-trash"></i> Eliminar
+                    </button>
+                    <div className="modal fade" id={`exampleModal${servicio.id}`} tabIndex="-1" aria-labelledby={`exampleModalLabel${servicio.id}`} aria-hidden="true">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id={`exampleModalLabel${servicio.id}`}>Desea eliminar el servicio "{servicio.nombre}"?</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div className="modal-header d-flex justify-content-between">
+                            <button onClick={() => handleDelete(servicio.id)} type="button" className="btn btn-danger small" data-bs-dismiss="modal">
+                              <i className="bi bi-trash"></i> Eliminar
+                            </button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -116,6 +116,7 @@ export const CreateServicioPage = () => {
           id="foto"
           className="form-control"
           onChange={(e) => setFoto(e.target.files[0])}
+          accept="image/*"
         />
       </div>
       <button className="btn btn-primary" onClick={handleCrearServicio}>

@@ -50,13 +50,27 @@ export const UsuariosList = () => {
                                     <a onClick={() => navigate(`/usuario/${usuario.id}`)} className="btn btn-primary">
                                         <i className="bi bi-pencil-square"></i> Editar
                                     </a>
-                                    <button
-                                        onClick={() => handleEliminarUsuario(usuario.id)}
-                                        type="button"
-                                        className="btn btn-danger"
-                                    >
-                                        <i className="bi bi-trash"></i> Eliminar
-                                    </button>
+                                    <div>
+                                        <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${usuario.id}`}>
+                                            <i className="bi bi-trash"></i> Eliminar
+                                        </button>
+                                        <div class="modal fade" id={`exampleModal${usuario.id}`} tabindex="-1" aria-labelledby={`exampleModalLabel${usuario.id}`} aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id={`exampleModalLabel${usuario.id}`}>Desea eliminar el usuario "{usuario.Nombre} {usuario.Apellido}"?</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-header d-flex justify-content-between">
+                                                        <button onClick={() => handleEliminarUsuario(usuario.id)} type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                            <i className="bi bi-trash"></i> Eliminar
+                                                        </button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

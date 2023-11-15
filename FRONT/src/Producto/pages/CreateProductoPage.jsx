@@ -119,7 +119,6 @@ export const CreateProductoPage = () => {
                                     name="strFoto"
                                     onChange={handleFileChange}
                                     accept="image/*"
-
                                 />
                             </div>
                             <div className="mb-3">

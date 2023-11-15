@@ -46,7 +46,7 @@ export const UsuarioActualizar = () => {
         const { name, value } = e.target;
         setUsuarioData({
             ...usuarioData,
-            [name]: value === "true", 
+            [name]: value, 
         });
     }
     const handleFileChange = (e) => {
@@ -141,6 +141,7 @@ export const UsuarioActualizar = () => {
                                     id="foto"
                                     name="foto"
                                     onChange={handleFileChange}
+                                    accept="image/*"
                                 />
                             </div>
                             {usuarioData.foto && (

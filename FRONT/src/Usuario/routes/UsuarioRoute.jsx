@@ -7,7 +7,7 @@ export const UsuariosRoute = () => {
         <>
             <Routes>
                 <Route path="/*" element={<UsuariosPage />} />
-                <Route path="/crear" element={<UsuarioCrear/>}></Route>
+                <Route path="/create" element={<UsuarioCrear/>}></Route>
                 <Route path="/:id" element={<UsuarioActualizar/>}></Route>
             </Routes>
         </>

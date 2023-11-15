@@ -55,9 +55,25 @@ export const TipoPlatoList = () => {
                 </Link>
               </td>
               <td>
-                <button onClick={() => handleDelete(plato.id)} type="button" className="btn btn-danger">
-                  <i className="bi bi-trash"></i>
-                </button>
+                <div>
+                  <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModalLabel${plato.id}`}>
+                    <i className="bi bi-trash"></i>
+                  </button>
+                  <div class="modal fade" id={`exampleModalLabel${plato.id}`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}`} aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id={`exampleModalLabel${plato.id}`} style={{ color: "black" }}>Desea eliminar el Tipo de Plato "{plato.nombre}"?</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-header d-flex justify-content-between">
+                          <button onClick={() => handleDelete(plato.id)} type="button" class="btn btn-danger" data-bs-dismiss="modal"><i className="bi bi-trash"></i> Eliminar</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
           ))}

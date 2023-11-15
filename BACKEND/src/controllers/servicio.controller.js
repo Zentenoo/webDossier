@@ -2,7 +2,7 @@ const pool = require('../db')
 
 const getAllServicios = async (req, res, next) => {
     try {
-        const allServicios = await pool.query("Select * from servicio");
+        const allServicios = await pool.query("Select * from servicio ORDER BY 1");
 
         // Formatear las fechas en un formato adecuado antes de enviar la respuesta
         const serviciosWithFormattedDates = allServicios.rows.map((servicio) => ({

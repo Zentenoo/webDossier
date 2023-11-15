@@ -6,7 +6,7 @@ const esanfitrion = false;
 
 const getAllUsuarios = async (req, res, next) => {
     try {
-        const allUsuarios = await pool.query('SELECT * FROM Usuario');
+        const allUsuarios = await pool.query('SELECT * FROM Usuario ORDER BY 1');
         res.json(allUsuarios.rows);
     } catch (error) {
         next(error);

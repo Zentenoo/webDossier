@@ -136,6 +136,7 @@ export const EditProductoPage = () => {
                                     id="strFoto"
                                     name="strFoto"
                                     onChange={handleFileChange}
+                                    accept='image/*'
                                 />
                             </div>
                             <div className="mb-3">
