@@ -76,9 +76,9 @@ export const ServicioList = () => {
                   <button onClick={() => handleDelete(servicio.id)} className="btn btn-danger small">
                     <FaTrash /> Eliminar
                   </button>
-                  <Link to={`/servicios/add/${servicio.id}`} className="btn btn-success small">
+                  {/* <Link to={`/servicios/add/${servicio.id}`} className="btn btn-success small">
                     <FaPlusCircle /> Agregar
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>

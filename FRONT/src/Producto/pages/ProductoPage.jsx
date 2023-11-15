@@ -6,14 +6,15 @@ export const ProductoPage = () => {
     <>
 
       <div className="container">
-        <h1>Lista de Productos</h1>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: "5px" }}>
+          <h1>Lista de Productos</h1>
+          <Link to="/producto/create" className="btn btn-primary" style={{ marginBottom: "5px" }}>
+            Crear Producto
+          </Link>
+        </div>
         <hr></hr>
-        <Link to="/producto/create" className="btn btn-primary" style={{marginBottom: "5px"}}>
-          Crear Producto
-        </Link>
+        <ProductoList />
       </div>
-      <ProductoList />
-
     </>
   );
 };

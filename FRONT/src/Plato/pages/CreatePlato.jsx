@@ -116,20 +116,20 @@ export const CreatePlatoPage = () => {
                                     <option value={false}>Inactivo</option>
                                 </select>
                             </div>
-                            <div className="d-flex justify-content-evenly">
-                                <div className="mb-3">
-                                    <label htmlFor="strTipoPlatoId" className="form-label">Tipo: </label>
-                                    <select
-                                        id="strTipoPlatoId"
-                                        name="strTipoPlatoId"
-                                        className='form-select-sm'
-                                    >
-                                        {tipoPlato.map(tipoPlato =>
-                                            <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre} </option>
-                                        )}
-                                    </select>
-                                </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="strTipoPlatoId" className="form-label">Tipo: </label>
+                                <select
+                                    id="strTipoPlatoId"
+                                    name="strTipoPlatoId"
+                                    className='form-select'
+                                >
+                                    {tipoPlato.map(tipoPlato =>
+                                        <option key={tipoPlato.id} value={tipoPlato.id} className="form-control"> {tipoPlato.nombre} </option>
+                                    )}
+                                </select>
                             </div>
+
                             <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Agregar</button>
                                 <Link to="/plato" className="btn btn-secondary">Cancelar</Link>

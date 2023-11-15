@@ -125,6 +125,7 @@ export const EditPlato = () => {
                                     type="file"
                                     id="foto"
                                     name="foto"
+                                    accept="image/*"
                                     onChange={handleFileChange}
                                 />
                             </div>

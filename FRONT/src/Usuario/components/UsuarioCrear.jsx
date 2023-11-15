@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { createUsuario } from "../helpers/petUsuario";
 import { useEffect, useState } from "react";
 export const UsuarioCrear = () => {
@@ -7,7 +8,7 @@ export const UsuarioCrear = () => {
         apellido: "",
         telefono: "",
         correo: "",
-        foto:""
+        foto: ""
     });
 
     const handleInputChange = (e) => {
@@ -41,7 +42,7 @@ export const UsuarioCrear = () => {
             reader.readAsDataURL(file);
         }
     };
-    return(
+    return (
         <div class="container mt-10">
             <section class="d-flex justify-content-center">
                 <div class="card col-sm-6 p-3">
@@ -61,7 +62,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                    
+
                             <div class="mb-3">
                                 <label htmlFor="contraseña" class="form-label">Contraseña:</label>
                                 <input
@@ -73,7 +74,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                    
+
                             <div class="mb-3">
                                 <label htmlFor="apellido" class="form-label">Apellido:</label>
                                 <input
@@ -85,7 +86,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                    
+
                             <div class="mb-3">
                                 <label htmlFor="telefono" class="form-label">Teléfono:</label>
                                 <input
@@ -97,7 +98,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label htmlFor="correo" class="form-label">Correo:</label>
                                 <input
@@ -109,10 +110,11 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label htmlFor="foto" class="form-label">Seleccionar Foto:</label>
                                 <input
+                                className="form-control"
                                     type="file"
                                     id="foto"
                                     name="foto"
@@ -120,8 +122,11 @@ export const UsuarioCrear = () => {
                                     accept="image/*"
                                 />
                             </div>
-                    
-                            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+
+                            <div className="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">Crear Usuario</button>
+                                <Link to="/usuario" className="btn btn-secondary">Cancelar</Link>
+                            </div>
                         </form>
                     </div>
                 </div>

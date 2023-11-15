@@ -32,9 +32,7 @@ export const TipoPlatoList = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Lista de Tipo de Plato</h1>
-      <hr></hr>
+    <div>
       <table className="table table-dark table-striped">
         <thead>
           <tr>
