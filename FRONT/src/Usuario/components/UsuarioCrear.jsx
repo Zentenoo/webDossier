@@ -46,7 +46,7 @@ export const UsuarioCrear = () => {
             <section class="d-flex justify-content-center">
                 <div class="card col-sm-6 p-3">
                     <div class="mb-3">
-                        <h1>Crear Usuario</h1>
+                        <h1>Registrar</h1>
                     </div>
                     <div class="mb-2">
                         <form onSubmit={handleSubmit}>

@@ -44,11 +44,19 @@ export const UsuarioActualizar = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setUsuarioData({
-            ...usuarioData,
-            [name]: value === "true", 
-        });
-    }
+    
+        if (name === 'estado' || name === 'esadmin' || name === 'esanfitrion') {
+            setUsuarioData({
+                ...usuarioData,
+                [name]: value === 'true',
+            });
+        } else {
+            setUsuarioData({
+                ...usuarioData,
+                [name]: value,
+            });
+        }
+    };
     const handleFileChange = (e) => {
         const file = e.target.files[0]; 
         if (file) {

@@ -1,8 +1,80 @@
 const pool = require('../db');
+const jwt = require('jsonwebtoken')
 
+const secretKey = 'tu_clave_secreta';
 const estado = true; 
 const esadmin = false; 
 const esanfitrion = false; 
+
+const loginUsuario = async (req, res, next) => {
+    const { correo, contraseña } = req.body;
+
+    try {
+        // Verifica las credenciales en tu base de datos
+        const result = await pool.query('SELECT * FROM Usuario WHERE correo = $1 AND contraseña = $2', [correo, contraseña]);
+        const usuario = result.rows[0];
+
+        if (!usuario) {
+            return res.status(401).json({ message: 'Credenciales inválidas' });
+        }
+
+        // Genera el token si las credenciales son válidas
+        const token = jwt.sign({ correo: usuario.correo, esAdmin: usuario.esAdmin, esAnfitrion: usuario.esAnfitrion }, secretKey, { expiresIn: '24h' });
+
+        // Devuelve el token como respuesta al inicio de sesión exitoso
+        res.json({ token });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const verifyToken = (req, res, next) => {
+    const token = req.headers['authorization'];
+
+    if (!token) {
+        return res.status(401).json({ message: 'Token no proporcionado' });
+    }
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Token inválido' });
+        }
+
+        req.user = decoded;
+        next();
+    });
+};
+
+const registerUsuario = async (req, res, next) => {
+    const {
+        nombre,
+        contraseña,
+        apellido,
+        telefono,
+        correo,
+        foto
+    } = req.body;
+
+    try {
+        const result = await pool.query(
+            'INSERT INTO Usuario (Nombre, Contraseña, Apellido, Telefono, Correo, Estado, EsAdmin, EsAnfitrion, Foto) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+            [
+                nombre,
+                contraseña,
+                apellido,
+                telefono,
+                correo,
+                estado, 
+                esadmin,
+                esanfitrion, 
+                foto
+            ]
+        );
+        res.json(result.rows[0]);
+    } catch (error) {
+        next(error);
+    }
+};
 
 const getAllUsuarios = async (req, res, next) => {
     try {
@@ -121,5 +193,8 @@ module.exports = {
     getUsuario,
     createUsuario,
     deleteUsuario,
-    editUsuario
+    editUsuario,
+    loginUsuario,
+    verifyToken,
+    registerUsuario
 };
