@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllTipoPlato } from "../helpers/getAllTipoPlato";
 import { deleteTipoPlato } from "../helpers/helperdeleteTipoPlato";
+import { EditTipoPlatoPage } from "../pages/EditTipoPlatoPage";
 
 export const TipoPlatoList = () => {
   const [tipoPlatos, setTipoPlato] = useState([]);
@@ -50,9 +51,27 @@ export const TipoPlatoList = () => {
               <td>{plato.nombre}</td>
               <td>{plato.descripcion}</td>
               <td>
-                <Link to={`/tipo_plato/edit/${plato.id}`} className="btn btn-primary">
+                {/* <Link to={`/tipo_plato/edit/${plato.id}`} className="btn btn-primary">
                   <i className="bi bi-pencil-square"></i>
-                </Link>
+                </Link> */}
+                <div>
+                  <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#exampleModalLabel${plato.id}e`}>
+                    <i className="bi bi-pencil-square"></i>
+                  </button>
+                  <div class="modal fade" id={`exampleModalLabel${plato.id}e`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}e`} aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id={`exampleModalLabel${plato.id}e`} style={{ color: "black" }}>Editar Tipo de Plato "{plato.nombre}"?</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-header d-flex justify-content-between">
+                          <EditTipoPlatoPage idtipo={plato.id} descripciontipo={plato.descripcion} nombretipo={plato.nombre}/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
               <td>
                 <div>

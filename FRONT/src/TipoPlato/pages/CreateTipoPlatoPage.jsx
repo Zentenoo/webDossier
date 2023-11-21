@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createTipoPlato } from "../helpers/helpercreateTipoPlato";
@@ -25,7 +26,6 @@ export const CreateTipoPlatoPage = () => {
 
   return (
     <div className="container">
-      <h1>Crear Nuevo Tipo de Plato</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="form-group">
         <label htmlFor="nombre">Nombre:</label>
@@ -46,12 +46,15 @@ export const CreateTipoPlatoPage = () => {
           onChange={(e) => setDescripcion(e.target.value)}
         />
       </div>
-      <button className="btn btn-primary" onClick={handleCrearTipoPlato}>
-        Crear Tipo de Plato
-      </button>
-      <Link to="/tipo_plato" className="btn btn-secondary">
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: '5px' }}>
+        <button className="btn btn-primary" onClick={handleCrearTipoPlato}>
+          Crear Tipo de Plato
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+      {/* <Link to="/tipo_plato" className="btn btn-secondary">
         Cancelar
-      </Link>
+      </Link> */}
     </div>
   );
 };
