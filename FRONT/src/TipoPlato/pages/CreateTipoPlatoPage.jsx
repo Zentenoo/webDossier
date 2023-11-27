@@ -50,7 +50,7 @@ export const CreateTipoPlatoPage = () => {
         <button className="btn btn-primary" onClick={handleCrearTipoPlato}>
           Crear Tipo de Plato
         </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
       </div>
       {/* <Link to="/tipo_plato" className="btn btn-secondary">
         Cancelar

@@ -58,14 +58,14 @@ export const TipoPlatoList = () => {
                   <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#exampleModalLabel${plato.id}e`}>
                     <i className="bi bi-pencil-square"></i>
                   </button>
-                  <div class="modal fade" id={`exampleModalLabel${plato.id}e`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}e`} aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id={`exampleModalLabel${plato.id}e`} style={{ color: "black" }}>Editar Tipo de Plato "{plato.nombre}"?</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div className="modal fade" id={`exampleModalLabel${plato.id}e`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}e`} aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id={`exampleModalLabel${plato.id}e`} style={{ color: "black" }}>Editar Tipo de Plato "{plato.nombre}"?</h5>
+                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-header d-flex justify-content-between">
+                        <div className="modal-header d-flex justify-content-between">
                           <EditTipoPlatoPage idtipo={plato.id} descripciontipo={plato.descripcion} nombretipo={plato.nombre}/>
                         </div>
                       </div>
@@ -78,16 +78,16 @@ export const TipoPlatoList = () => {
                   <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModalLabel${plato.id}`}>
                     <i className="bi bi-trash"></i>
                   </button>
-                  <div class="modal fade" id={`exampleModalLabel${plato.id}`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}`} aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id={`exampleModalLabel${plato.id}`} style={{ color: "black" }}>Desea eliminar el Tipo de Plato "{plato.nombre}"?</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div className="modal fade" id={`exampleModalLabel${plato.id}`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}`} aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id={`exampleModalLabel${plato.id}`} style={{ color: "black" }}>Desea eliminar el Tipo de Plato "{plato.nombre}"?</h5>
+                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-header d-flex justify-content-between">
-                          <button onClick={() => handleDelete(plato.id)} type="button" class="btn btn-danger" data-bs-dismiss="modal"><i className="bi bi-trash"></i> Eliminar</button>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <div className="modal-header d-flex justify-content-between">
+                          <button onClick={() => handleDelete(plato.id)} type="button" className="btn btn-danger" data-bs-dismiss="modal"><i className="bi bi-trash"></i> Eliminar</button>
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                       </div>
                     </div>

@@ -46,11 +46,11 @@ export const EditTipoPlatoPage = ({ idtipo, nombretipo, descripciontipo }) => {
           onChange={(e) => setDescripcion(e.target.value)}
         />
       </div>
-      <div class="modal-header d-flex justify-content-between">
+      <div className="modal-header d-flex justify-content-between">
         <button className="btn btn-primary" onClick={handleGuardarCambios}>
           Guardar Cambios
         </button>
-        <button id="cancelButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button id="cancelButton" type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   );
