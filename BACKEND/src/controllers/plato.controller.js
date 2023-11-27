@@ -1,8 +1,8 @@
-const pool = require('../db');
+const PlatoModel = require('../models/plato.model');
 
 const getAllPlato = async (req, res, next) => {
     try {
-        const allPlatos = await pool.query("SELECT p.*,t.nombre tipoplato FROM plato p, tipoplato t WHERE p.TipoPlatoId=t.id ORDER BY 1");
+        const allPlatos = await PlatoModel.getAllPlatos();
         res.json(allPlatos.rows);
     } catch (error) {
         next(error);
@@ -12,13 +12,13 @@ const getAllPlato = async (req, res, next) => {
 const getPlato = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const result = await pool.query("SELECT * FROM plato WHERE id = $1", [id]);
-        if (result.rows.length === 0) {
+        const plato = await PlatoModel.getPlatoById(id);
+        if (!plato) {
             return res.status(404).json({
                 message: "El plato no existe"
             });
         }
-        res.json(result.rows[0]);
+        res.json(plato);
     } catch (error) {
         next(error);
     }
@@ -30,31 +30,18 @@ const createPlato = async (req, res, next) => {
         if (!nombre || !descripcion || !foto || !tipoPlatoId) {
             return res.status(400).json({ message: "Faltan campos obligatorios" });
         }
-        const result = await pool.query(
-            "INSERT INTO plato (nombre, descripcion, estado, foto, tipoplatoid) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [nombre, descripcion, estado, foto, tipoPlatoId]
-        );
-        if (result.rows.length > 0) {
-            res.status(201).json(result.rows[0]);
-        } else {
-            res.status(500).json({ message: "Error al crear el plato" });
-        }
+        const nuevoPlato = await PlatoModel.createPlato(nombre, descripcion, estado, foto, tipoPlatoId);
+        res.status(201).json(nuevoPlato);
     } catch (error) {
         next(error);
     }
 };
 
-
 const deletePlato = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const result = await pool.query("DELETE FROM Plato WHERE id = $1 RETURNING *", [id]);
-        if (result.rowCount === 0) {
-            return res.status(404).json({
-                message: "El plato no existe"
-            });
-        }
-        return res.sendStatus(204);
+        await PlatoModel.deletePlatoById(id);
+        res.sendStatus(204);
     } catch (error) {
         next(error);
     }
@@ -64,22 +51,13 @@ const editPlato = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { nombre, descripcion, estado, foto, tipoPlatoId } = req.body;
-        const result = await pool.query("UPDATE Plato SET nombre = $1, descripcion = $2, estado = $3, foto = $4, tipoPlatoId = $5 WHERE id = $6 RETURNING *",
-            [
-                nombre,
-                descripcion,
-                estado,
-                foto,
-                tipoPlatoId,
-                id
-            ]
-        );
-        if (result.rows.length === 0) {
+        const platoEditado = await PlatoModel.updatePlatoById(id, nombre, descripcion, estado, foto, tipoPlatoId);
+        if (!platoEditado) {
             return res.status(404).json({
                 message: "El plato no existe"
             });
         }
-        return res.json(result.rows[0]);
+        res.json(platoEditado);
     } catch (error) {
         next(error);
     }
