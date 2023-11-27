@@ -9,7 +9,7 @@ export const UsuariosRoute = () => {
         <>
             <Routes>
                 <Route path="/*" element={<UsuariosPage />} />
-                <Route path="/crear" element={<UsuarioCrear/>}></Route>
+                <Route path="/register" element={<UsuarioCrear/>}></Route>
                 <Route path="/:id" element={<UsuarioActualizar/>}></Route>
                 <Route path="/lista" element={<UsuariosList/>}></Route>
                 <Route path="/login" element={<Login/>}></Route>

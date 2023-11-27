@@ -9,7 +9,7 @@ import { ProductoRoute } from "../Producto/routes/ProductoRoute"
 export const AppRouter = () => {
     return(
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">DossierUdi</a>
                     <div className="navbar-collapse" id="navbarNav">
@@ -33,12 +33,12 @@ export const AppRouter = () => {
                     </div>
 
                 </div>
-            </nav>
+            </nav> */}
                 <Routes>
                     <Route path="/*" element={<InicioRoutes/>}></Route>
+                    <Route path="/usuario/*" element={<UsuariosRoute/>}></Route>
                     <Route path="/plato/*" element={<PlatoRoutes/>}></Route>
                     <Route path="/tipo_plato/*" element={<TipoPlatoRoute/>}></Route>
-                    <Route path="/usuario/*" element={<UsuariosRoute/>}></Route>
                     <Route path="/servicios/*" element={<ServicioRoute/>}></Route>
                     <Route path="/producto/*" element={<ProductoRoute/>}></Route>
                 </Routes>

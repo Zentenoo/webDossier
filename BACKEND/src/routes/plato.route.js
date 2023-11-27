@@ -3,7 +3,6 @@ const {  getPlato, createPlato, deletePlato, editPlato, getAllPlato } = require(
 const router = Router();
 
 
-
 router.get('/plato', getAllPlato)
 
 router.get('/plato/:id', getPlato)

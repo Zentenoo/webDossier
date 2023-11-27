@@ -30,9 +30,9 @@
     }
 
     export async function createUsuario(usuarioData) {
-        const url = `${API_BASE_URL}/usuario`;
-        const resp = await axios.post(url, usuarioData);
         console.log(usuarioData)
+        const url = `${API_BASE_URL}/register`;
+        const resp = await axios.post(url, usuarioData);
         return resp.data;
     }
 

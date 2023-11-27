@@ -22,12 +22,22 @@ export const Login = () => {
     try {
       const response = await axios.post('http://localhost:3000/login', credentials);
       console.log(response.data);
-      // Maneja la respuesta aquí, por ejemplo, guardando el token o redirigiendo a otra página
+
       window.location.href = 'usuario/lista'
     } catch (error) {
-        console.error('Error en el login:', error);
+    if (error.response) {
+      const { data, status } = error.response;
+      if (status === 401 && data.message === 'No tienes permisos') {
+        setError('No tienes permisos');
+      } else if (status === 401 && data.message === 'Credenciales inválidas') {
         setError('Correo o contraseña incorrectos');
+      } else {
+        setError('Ocurrió un error al iniciar sesión');
+      }
+    } else {
+      setError('Ocurrió un error al iniciar sesión');
     }
+  }
   };
 
   return (
