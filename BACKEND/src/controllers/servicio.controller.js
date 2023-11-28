@@ -175,6 +175,31 @@ const editServicio = async (req, res) => {
     });
   };
   
+  const getPlatosPorServicio = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const query = `
+            SELECT platoid
+            FROM ServPlato
+            WHERE servicioid = $1
+        `;
+        const result = await pool.query(query, [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                message: "No se encontraron platos para este servicio"
+            });
+        }
+
+        // Extraer los IDs de los platos de los resultados
+        const platosIds = result.rows.map(row => row.platoid);
+
+        res.json(platosIds);
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 module.exports = {
     getAllServicios,
