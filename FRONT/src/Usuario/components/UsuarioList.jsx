@@ -18,7 +18,6 @@ export const UsuariosList = () => {
         }
         cargarUsuarios();
     }, []);
-
     const handleEliminarUsuario = async (id) => {
         try {
             await deleteUsuario(id);
@@ -45,8 +44,8 @@ export const UsuariosList = () => {
                                 <h5 className="card-title">{usuario.Nombre} {usuario.Apellido}</h5>
                                 <p className="card-text">Correo: {usuario.Correo}</p>
                                 <p className="card-text">Estado: {usuario.Estado ? "Activo" : "Inactivo"}</p>
-                                <p className="card-text">Admin: {usuario.EsAdmin ? "Sí" : "No"}</p>
-                                <p className="card-text">Anfitrión: {usuario.EsAnfitrion ? "Sí" : "No"}</p>
+                                <p className="card-text">Admin: {usuario.Esadmin ? "Sí" : "No"}</p>
+                                <p className="card-text">Anfitrión: {usuario.Esanfitrion ? "Sí" : "No"}</p>
                                 <div className="d-flex justify-content-between">
                                     <div>
                                         <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#exampleModal${usuario.id}e`}>

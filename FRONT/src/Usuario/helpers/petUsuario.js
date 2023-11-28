@@ -13,8 +13,8 @@
             Telefono: usuario.telefono,
             Correo: usuario.correo,
             Estado: usuario.estado,
-            EsAdmin: usuario.esadmin,
-            EsAnfitrion: usuario.esanfitrion,
+            Esadmin: usuario.esadmin,
+            Esanfitrion: usuario.esanfitrion,
             Foto: usuario.foto,
         }));
         return usuarios;

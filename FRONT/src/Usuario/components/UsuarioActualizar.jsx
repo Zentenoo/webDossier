@@ -3,45 +3,44 @@ import axios from 'axios';
 
 export const UsuarioActualizar = ({ usuario }) => {
     const [usuarioData, setUsuarioData] = useState({
-        Nombre: "",
-        Contraseña: "",
-        Apellido: "",
-        Telefono: "",
-        Correo: "",
-        Estado: true,
-        Esadmin: false,
-        Esanfitrion: false,
-        Foto: ""
+        nombre: "",
+        contraseña: "",
+        apellido: "",
+        telefono: "",
+        correo: "",
+        estado: true,
+        esadmin: false,
+        esanfitrion: false,
+        foto: ""
     });
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setUsuarioData({
-                    ...usuarioData,
-                    Nombre: usuario.Nombre,
-                    Contraseña: usuario.Contraseña,
-                    Apellido: usuario.Apellido,
-                    Telefono: usuario.Telefono,
-                    Correo: usuario.Correo,
-                    Estado: usuario.Estado,
-                    Esadmin: usuario.Esadmin,
-                    Esanfitrion: usuario.Esanfitrion,
-                    Foto: usuario.Foto
-                });
-            } catch (error) {
-                console.error("Error al obtener los datos del usuario:", error);
-            }
-        };
-        fetchData();
+        if (usuario) {
+            setUsuarioData({
+                nombre: usuario.Nombre,
+                contraseña: usuario.Contraseña,
+                apellido: usuario.Apellido,
+                telefono: usuario.Telefono,
+                correo: usuario.Correo,
+                estado: usuario.Estado,
+                esadmin: usuario.Esadmin,
+                esanfitrion: usuario.Esanfitrion,
+                foto: usuario.Foto
+            });
+        }
     }, [usuario]);
+
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        const dataToSend = {
+            ...usuarioData,
+            esadmin: usuarioData.esadmin || false,
+            esanfitrion: usuarioData.esanfitrion || false,
+          };
         try {
-            await axios.put(`http://localhost:3000/usuario/${usuario.id}`, usuarioData);
-
-            window.location.href = "/usuario";
+            await axios.put(`http://localhost:3000/usuario/${usuario.id}`, dataToSend);
+            console.log(dataToSend)
+            window.location.href = "/usuario/lista";
         } catch (error) {
             console.error("Error al actualizar el usuario:", error);
         }
@@ -49,11 +48,18 @@ export const UsuarioActualizar = ({ usuario }) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setUsuarioData({
+        if (name === 'estado' || name === 'esadmin' || name === 'esanfitrion') {
+          setUsuarioData({
+            ...usuarioData,
+            [name]: value === 'true',
+          });
+        } else {
+          setUsuarioData({
             ...usuarioData,
             [name]: value,
-        });
-    }
+          });
+        }
+    };
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -70,7 +76,7 @@ export const UsuarioActualizar = ({ usuario }) => {
     };
 
     const handleCancelar = () => {
-        window.location.href = "/usuario";
+        window.location.href = "/usuario/lista";
     }
     return (
         <div className="container mt-10">
@@ -84,7 +90,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="text"
                                     name="nombre"
-                                    value={usuarioData.Nombre}
+                                    value={usuarioData.nombre}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -95,7 +101,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="password"
                                     name="contraseña"
-                                    value={usuarioData.Contraseña}
+                                    value={usuarioData.contraseña}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -106,7 +112,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="text"
                                     name="apellido"
-                                    value={usuarioData.Apellido}
+                                    value={usuarioData.apellido}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -117,7 +123,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="tel"
                                     name="telefono"
-                                    value={usuarioData.Telefono}
+                                    value={usuarioData.telefono}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -127,7 +133,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="email"
                                     name="correo"
-                                    value={usuarioData.Correo}
+                                    value={usuarioData.correo}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -143,21 +149,21 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     accept="image/*"
                                 />
                             </div>
-                            {usuarioData.Foto && (
+                            {usuarioData.foto && (
                                 <div className="mb-3">
                                     <label className="form-label">Foto Actual: </label>
                                     <img
-                                        src={usuarioData.Foto}
+                                        src={usuarioData.foto}
                                         alt="Foto Actual"
                                         style={{ maxWidth: "100px", maxHeight: "100px" }}
                                     />
                                 </div>
                             )}
-                            <div className="mb-3">
-                                <label htmlFor='estado' className="form-label">Estado: </label>
+                            <div className ="mb-3">
+                                <label htmlFor='estado' class="form-label">Estado: </label>
                                 <select
                                     name='estado'
-                                    value={usuarioData.Estado ? "true" : "false"}
+                                    value={usuarioData.estado ? "true" :"false"}
                                     onChange={handleInputChange}
                                     className="form-select"
                                 >
@@ -170,22 +176,23 @@ export const UsuarioActualizar = ({ usuario }) => {
                                 <label htmlFor='esadmin' className="form-label">Admin: </label>
                                 <select
                                     name='esadmin'
-                                    value={usuarioData.Esadmin ? "true" : "false"}
+                                    value={usuarioData.esadmin ? "true" : "false"}
                                     onChange={handleInputChange}
                                     className="form-select"
                                 >
-                                    <option value="true">Activo</option>
-                                    <option value="false">Inactivo</option>
+                                    <option value="true" selected={usuarioData.esadmin}>Activo</option>
+                                    <option value="false" selected={!usuarioData.esadmin}>Inactivo</option>
                                 </select>
                             </div>
 
+
                             <div className="mb-3">
-                                <label htmlFor='esanfitrion' className="form-label">Anfitrion: </label>
+                                <label htmlFor='esanfitrion' class="form-label">Anfitrion: </label>
                                 <select
                                     name='esanfitrion'
-                                    value={usuarioData.Esanfitrion ? "true" : "false"}
+                                    value={usuarioData.esanfitrion ? "true" :"false"}
                                     onChange={handleInputChange}
-                                    className="form-select"
+                                    class="form-select"
                                 >
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
