@@ -5,6 +5,7 @@ import { TipoPlatoRoute } from "../TipoPlato/routes/TipoPlatoRoute"
 import { ServicioRoute } from "../Servicios/routes/ServicioRoute"
 import { PlatoRoutes } from "../Plato/routes/PlatoRoutes"
 import { ProductoRoute } from "../Producto/routes/ProductoRoute"
+import { ReservaRoutes } from "../Reserva/routes/ReservaRoutes"
 
 export const AppRouter = () => {
     return(
@@ -28,7 +29,10 @@ export const AppRouter = () => {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/producto">Producto</a>
-                            </li>                            
+                            </li>    
+                            <li className="nav-item">
+                                <a className="nav-link" href="/reserva">Reserva</a>
+                            </li>                         
                         </ul>
                     </div>
 
@@ -41,6 +45,7 @@ export const AppRouter = () => {
                     <Route path="/usuario/*" element={<UsuariosRoute/>}></Route>
                     <Route path="/servicios/*" element={<ServicioRoute/>}></Route>
                     <Route path="/producto/*" element={<ProductoRoute/>}></Route>
+                    <Route path="/reserva/*" element={<ReservaRoutes/>}></Route>
                 </Routes>
         </>
     )
