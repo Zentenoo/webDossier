@@ -1,12 +1,18 @@
 import axios from "axios";
 
-export async function createServicio(nuevoServicio) {
+export async function createServicio(servicio, listaPlatos) {
   try {
-    const url = "http://localhost:3000/servicio"; // Reemplaza con la URL de tu servidor
-    console.log("Enviando solicitud al servidor:", nuevoServicio);
-    const response = await axios.post(url, nuevoServicio);
-    console.log("Respuesta del servidor:", response.data);
-    return response.status === 200;
+    const url = "http://localhost:3000/servicio"; // Ajusta la URL de tu servidor
+    console.log("Enviando solicitud al servidor:", { servicio, listaPlatos });
+    const response = await axios.post(url, { servicio, listaPlatos });
+
+    if (response.status === 200) {
+      console.log("Servicio creado con éxito.");
+      return true;
+    } else {
+      console.error("Error al crear el servicio:", response.data.message ?? "Error desconocido");
+      return false;
+    }
   } catch (error) {
     console.error("Error al crear el servicio:", error);
     return false; // Retorna `false` en caso de error

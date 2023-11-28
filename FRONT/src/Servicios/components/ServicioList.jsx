@@ -84,6 +84,9 @@ export const ServicioList = () => {
                 <hr />
                 <p className="card-text small">Cupos: <strong style={{ fontSize: '17px', color: 'green' }}>{servicio.cupo}</strong></p>
                 <p className="card-text small">Precio: {servicio.precio}Bs</p>
+                <p className="card-text small">
+                  Estado: {servicio.estado ? <i className="bi bi-check-circle"></i> : <i className="bi bi-x-circle"></i>}
+                </p>
                 <div className="d-flex justify-content-between align-items-center">
                   <Link to={`/servicios/edit/${servicio.id}`} className="btn btn-primary small">
                     <FaEdit /> Editar
