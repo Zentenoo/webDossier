@@ -15,6 +15,7 @@ export const CreateServicioPage = () => {
   const [fechaFin, setFechaFin] = useState("");
   const [cupo, setCupo] = useState(0);
   const [precio, setPrecio] = useState(0);
+  const [estado, setEstado] = useState(true);;
   const [foto, setFoto] = useState(null);
   const [error, setError] = useState("");
   const [platos, setPlatos] = useState([]);
@@ -55,46 +56,41 @@ export const CreateServicioPage = () => {
       setError("Nombre y descripción son campos obligatorios");
       return;
     }
+    try{
+      const servicio = {
+        nombre,
+        descripcion,
+        fechaInicio,
+        fechaFin,
+        cupo,
+        precio,
+        estado,
+        foto: foto ? await convertToBase64(foto) : null,
+      };
+      // Obtener los platos seleccionados desde la instancia de Tagify
+      const platosSeleccionados = tagifyRef.current.tagify.value.map((platoObj) => {
+        const plato = platos.find((p) => p.nombre === platoObj.value);
+        console.log('Plato nombre:', platoObj.value);
+        console.log('Plato encontrado:', plato);
+        return plato ? plato.id : null;
+      }).filter(Boolean);      
+      
+      console.log("IDs de los platos seleccionados:", platosSeleccionados);
 
-    const nuevoServicio = {
-      nombre,
-      descripcion,
-      fechaInicio,
-      fechaFin,
-      cupo,
-      precio,
-      foto: foto ? await convertToBase64(foto) : null,
-    };
-    const exitoServicio = await createServicio(nuevoServicio);
+      const listaPlatos = Array.from(platosSeleccionados); // Convert the object to an array
+      console.log("IDs de los platos seleccionados:", listaPlatos);
 
-    if (exitoServicio) {
-      if (isTagifyInitialized) {
-        const platosSeleccionados = tagifyRef.current?.tagify.value.map((platoNombre) => {
-          const plato = platos.find((p) => p.nombre === platoNombre);
-          return plato ? plato.id : null;
-        }).filter(Boolean);
+      const exitoServicio = await createServicio(servicio, listaPlatos);
 
-        console.log("IDs de los platos seleccionados:", platosSeleccionados); // Verifica los IDs seleccionados antes de enviarlos
-
-        const nuevoServPlato = {
-          servicioId: nuevoServicio.id, // Reemplaza 'id' con la propiedad correcta que identifica al servicio recién creado
-          platos: platosSeleccionados,
-        };
-        console.log("Objeto nuevoServPlato:", nuevoServPlato); // Verifica el objeto a enviar
-
-        const exitoServPlato = await createServPlato(nuevoServPlato);
-
-        if (exitoServPlato) {
-          window.location.href = "/servicios";
-        } else {
-          setError("Error al crear el ServPlato");
-        }
+      if (exitoServicio) {
+        window.location.href = "/servicios";
       } else {
-        setError("Tagify no se ha inicializado correctamente");
+        setError("Error al crear el servicio");
       }
-    } else {
+    } catch (error) {
       setError("Error al crear el servicio");
     }
+
   };
 
   const convertToBase64 = (file) => {
@@ -168,6 +164,18 @@ export const CreateServicioPage = () => {
           value={precio}
           onChange={(e) => setPrecio(e.target.value)}
         />
+      </div>
+      <div className="form-group">
+        <label htmlFor="estado">Estado:</label>
+        <select
+          id="estado"
+          className="form-control"
+          value={estado}
+          onChange={(e) => setEstado(e.target.value)}
+          >
+          <option value={false}>No Visible</option>
+          <option value={true}>Visible</option>
+        </select>
       </div>
       <div className="form-group">
         <label htmlFor="foto">Foto:</label>

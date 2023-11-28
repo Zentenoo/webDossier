@@ -12,6 +12,7 @@ export async function getAllServicios(){
         fechaFin: servicio.fechaFin,
         cupo: servicio.cupo,
         precio: servicio.precio,
+        estado:servicio.estado,
         foto: servicio.foto,
     }));
     return servicios

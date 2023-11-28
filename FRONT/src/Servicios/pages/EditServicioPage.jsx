@@ -43,6 +43,7 @@ useEffect(() => {
       servicio.fechaFin,
       servicio.cupo,
       servicio.precio,
+      servicio.estado,
       servicio.foto
     );
 
@@ -108,7 +109,7 @@ useEffect(() => {
           id="cupo"
           name="cupo"
           className="form-control"
-          value={servicio.cupo || ""}
+          value={servicio.cupo || 0}
           onChange={handleChange}
         />
       </div>
@@ -123,6 +124,19 @@ useEffect(() => {
           onChange={handleChange}
         />
       </div>
+      <div className="form-group">
+          <label htmlFor="estado">Estado:</label>
+          <select
+            id="estado"
+            name="estado"
+            className="form-control"
+            value={servicio.estado || false}
+            onChange={handleChange}
+          >
+            <option value={false}>No Visible</option>
+            <option value={true}>Visible</option>
+          </select>
+        </div>
       <button className="btn btn-primary" onClick={handleUpdateServicio}>
         Actualizar Servicio
       </button>
