@@ -5,6 +5,8 @@ import { deleteServicio } from "../helpers/helperdeleteServicio";
 import { FaEdit, FaTrash, FaPlusCircle } from "react-icons/fa";
 import format from 'date-fns/format';
 import esLocale from 'date-fns/locale/es';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const ServicioList = () => {
   const formatDate = (dateString) => {
@@ -42,11 +44,23 @@ export const ServicioList = () => {
   useEffect(() => {
     getListServicio();
   }, []);
+  
 
-  const handleDelete = async (id) => {
+
+  const handleDelete = async (id, nombre) => {
     const success = await deleteServicio(id);
     if (success) {
       getListServicio();
+      toast.success(`Servicio "${nombre}" eliminado con éxito`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
       console.error("Failed to delete Servicio with ID: ", id);
     }
@@ -54,6 +68,7 @@ export const ServicioList = () => {
 
   return (
     <div className="container">
+      <ToastContainer />
       <br />
       <div className="row">
         {servicios.map((servicio) => (
@@ -85,7 +100,7 @@ export const ServicioList = () => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div className="modal-header d-flex justify-content-between">
-                            <button onClick={() => handleDelete(servicio.id)} type="button" className="btn btn-danger small" data-bs-dismiss="modal">
+                            <button onClick={() => handleDelete(servicio.id, servicio.nombre)} type="button" className="btn btn-danger small" data-bs-dismiss="modal">
                               <i className="bi bi-trash"></i> Eliminar
                             </button>
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

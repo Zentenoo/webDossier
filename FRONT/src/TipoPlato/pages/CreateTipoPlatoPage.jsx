@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createTipoPlato } from "../helpers/helpercreateTipoPlato";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const CreateTipoPlatoPage = () => {
   const [nombre, setNombre] = useState("");
@@ -17,6 +19,16 @@ export const CreateTipoPlatoPage = () => {
     const exito = await createTipoPlato(nuevoTipoPlato);
 
     if (exito) {
+      toast.success(`Tipo de Plato "${nuevoTipoPlato.nombre}" creado con éxito`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       window.location.href = "/tipo_plato";
     } else {
       setError("Error al crear el tipo de plato");
@@ -25,6 +37,7 @@ export const CreateTipoPlatoPage = () => {
 
   return (
     <div className="container">
+      <ToastContainer />
       <h1>Crear Nuevo Tipo de Plato</h1>
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="form-group">
