@@ -9,6 +9,7 @@ import { ReservaRoutes } from "../Reserva/routes/ReservaRoutes"
 
 import { useContext} from "react"
 import { AuthContext } from "../Context/Authcontext"
+import { Login } from "../Usuario/components/Login"
 
 export const AppRouter = () => {
     const { isLoggedIn } = useContext(AuthContext);
@@ -47,6 +48,7 @@ export const AppRouter = () => {
                 <Routes>
                     <Route path="/*" element={<InicioRoutes/>}></Route>
                     <Route path="/usuario/*" element={<UsuariosRoute/>}></Route>
+                    <Route path="/login/*" element={<Login/>}></Route>
                     <Route path="/plato/*" element={<PlatoRoutes/>}></Route>
                     <Route path="/tipo_plato/*" element={<TipoPlatoRoute/>}></Route>
                     <Route path="/servicios/*" element={<ServicioRoute/>}></Route>
