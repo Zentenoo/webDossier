@@ -3,7 +3,6 @@ import axios from 'axios';
 export async function getAllPlato() {
   const url = 'http://localhost:3000/plato';
   const resp = await axios.get(url);
-
   if (resp.status === 200) {
     const platos = resp.data.map((plato) => ({
       id: plato.id,
@@ -12,6 +11,7 @@ export async function getAllPlato() {
       estado: plato.estado,
       foto: plato.foto,
       tipoplato: plato.tipoplato,
+      tipoplatoid:plato.tipoplatoid
     }));
     return platos;
   } else {

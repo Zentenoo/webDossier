@@ -11,7 +11,8 @@ export const EditPlato = ({ plato }) => {
         strDescripcion: "",
         strFoto: "",
         boolEstado: true,
-        tipoPlatoId: "",
+        tipoplato: "",
+        tipoplatoid: 0,
     });
     // const params = useParams();
     const getTipoPlatos = async () => {
@@ -26,7 +27,6 @@ export const EditPlato = ({ plato }) => {
     const getPlatoData = async () => {
         try {
             const data = await plato;
-            console.log(data)
             return data;
         } catch (error) {
             console.error("Error al obtener los datos del plato:", error);
@@ -40,12 +40,14 @@ export const EditPlato = ({ plato }) => {
                 strDescripcion: data.descripcion,
                 strFoto: data.foto,
                 boolEstado: data.estado,
-                tipoPlatoId: data.tipoPlatoId,
+                tipoplato: data.tipoplato,
+                tipoplatoid: data.tipoplatoid,
             });
         });
     }, [plato]);
 
     const handleChange = (e) => {
+        // console.log(e.target.name,e.target.value);
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -75,7 +77,7 @@ export const EditPlato = ({ plato }) => {
                 descripcion: formData.strDescripcion,
                 estado: formData.boolEstado,
                 foto: formData.strFoto,
-                tipoPlatoId: document.getElementById(`strTipoPlatoId${plato.id}`).value,
+                tipoPlatoId: parseInt(formData.tipoplatoid, 10),
             });
             window.location.href = "/plato";
         } catch (error) {
@@ -153,12 +155,13 @@ export const EditPlato = ({ plato }) => {
                             </div>
                             {tipoPlato.length > 0 && (
                                 <div className="mb-3">
-                                    <label htmlFor={`strTipoPlatoId${plato.id}`} className="form-label">Tipo: </label>
+                                    <label htmlFor="tipoplatoid" className="form-label">Tipo: </label>
                                     <select
-                                        id={`strTipoPlatoId${plato.id}`}
-                                        name={`strTipoPlatoId${plato.id}`}
+                                        id="tipoplatoid"
+                                        name="tipoplatoid"
                                         className='form-select'
-
+                                        value={formData.tipoplatoid}
+                                        onChange={handleChange}
                                     >
                                         {tipoPlato.map(tipoPlato =>
                                             <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre}</option>

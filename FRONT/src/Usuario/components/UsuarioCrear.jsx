@@ -1,5 +1,7 @@
 import { createUsuario } from "../helpers/petUsuario";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 export const UsuarioCrear = () => {
     const [usuarioData, setUsuarioData] = useState({
         nombre: "",
@@ -7,7 +9,7 @@ export const UsuarioCrear = () => {
         apellido: "",
         telefono: "",
         correo: "",
-        foto:""
+        foto: ""
     });
 
     const handleInputChange = (e) => {
@@ -41,7 +43,7 @@ export const UsuarioCrear = () => {
             reader.readAsDataURL(file);
         }
     };
-    return(
+    return (
         <div className="container mt-10">
             <section className="d-flex justify-content-center">
                 <div className="card col-sm-6 p-3">
@@ -61,7 +63,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                    
+
                             <div className="mb-3">
                                 <label htmlFor="contraseña" className="form-label">Contraseña:</label>
                                 <input
@@ -73,7 +75,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                    
+
                             <div className="mb-3">
                                 <label htmlFor="apellido" className="form-label">Apellido:</label>
                                 <input
@@ -85,7 +87,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                    
+
                             <div className="mb-3">
                                 <label htmlFor="telefono" className="form-label">Teléfono:</label>
                                 <input
@@ -97,7 +99,7 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            
+
                             <div className="mb-3">
                                 <label htmlFor="correo" className="form-label">Correo:</label>
                                 <input
@@ -109,10 +111,11 @@ export const UsuarioCrear = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            
+
                             <div className="mb-3">
                                 <label htmlFor="foto" className="form-label">Seleccionar Foto:</label>
                                 <input
+                                    className="form-control"
                                     type="file"
                                     id="foto"
                                     name="foto"
@@ -120,8 +123,11 @@ export const UsuarioCrear = () => {
                                     accept="image/*"
                                 />
                             </div>
-                    
-                            <button type="submit" className="btn btn-primary">Crear Usuario</button>
+
+                            <div className="d-flex justify-content-between">
+                                <button type="submit" className="btn btn-primary">Crear Usuario</button>
+                                <Link to={"/usuario"} className="btn btn-secondary">Cancelar</Link>
+                            </div>
                         </form>
                     </div>
                 </div>

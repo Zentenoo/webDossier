@@ -8,12 +8,12 @@ Content-Type: application/json
     "observacion":"Reserva Grande", 
     "estado":true, 
     "total":50, 
-    "usuarioid":2, 
+    "usuarioid":1, 
     "servicioid":8
 }
 
 ###
-GET http://localhost:3000/reserva
+GET http://localhost:3000/plato
 ###
 GET http://localhost:3000/usuario
 ###
@@ -31,9 +31,13 @@ Content-Type: application/json
     "descripcion":"descripcion 1"
 }
 ###
-PUT  http://localhost:3000/reserva/2
+PUT  http://localhost:3000/plato/29
 Content-Type: application/json
 
 {
-    "estado":true
+    "nombre": "nuevo2",
+    "descripcion": "nuevo2",
+    "foto": "sadadsad",
+    "estado": true,
+    "tipoPlatoId": 6
 }
