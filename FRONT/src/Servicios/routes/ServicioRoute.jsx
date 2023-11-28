@@ -9,7 +9,7 @@ export const ServicioRoute=()=>{
         <>
             <Routes>
                 <Route path="/*" element={<ServicioPage/>}></Route>
-                <Route path="/:id" element={<EditServicioPage/>}></Route>
+                <Route path="/edit/:id" element={<EditServicioPage/>}></Route>
                 <Route path="/create" element={<CreateServicioPage/>}></Route>
                 
             </Routes>

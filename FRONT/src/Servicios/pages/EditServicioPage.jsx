@@ -8,16 +8,26 @@ export const EditServicioPage = () => {
   const [servicio, setServicio] = useState({});
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    getServicioById(id).then((data) => {
-      if (data === "error") {
-        setError("Error al obtener el servicio");
-        return;
+  const getServicioWithFechasById = (id) => {
+    return fetch(`http://localhost:3000/servicio/${id}`).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return "error";
       }
-
-      setServicio(data);
     });
-  }, [id]);
+  };
+
+useEffect(() => {
+  getServicioWithFechasById(id).then((data) => {
+    if (data === "error") {
+      setError("Error al obtener el servicio");
+      return;
+    }
+
+    setServicio(data);
+  });
+}, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +35,20 @@ export const EditServicioPage = () => {
   };
 
   const handleUpdateServicio = async () => {
-    const success = await editServicio(servicio);
+    const success = await editServicio(
+      id, // Pasa el ID del servicio que deseas editar
+      servicio.nombre, // Pasa los valores actuales de servicio
+      servicio.descripcion,
+      servicio.fechaInicio,
+      servicio.fechaFin,
+      servicio.cupo,
+      servicio.precio,
+      servicio.foto
+    );
+
     if (success) {
       // Redirige a la página de lista de servicios después de la actualización
-      window.location.href = "/Servicio";
+      window.location.href = "/servicios";
     } else {
       setError("Error al actualizar el servicio");
     }
@@ -43,8 +63,9 @@ export const EditServicioPage = () => {
         <input
           type="text"
           id="nombre"
+          name="nombre" // Agrega el atributo "name" para identificar el campo
           className="form-control"
-          value={servicio.nombre}
+          value={servicio.nombre || ""} // Usa servicio.nombre o cadena vacía por defecto
           onChange={handleChange}
         />
       </div>
@@ -52,8 +73,9 @@ export const EditServicioPage = () => {
         <label htmlFor="descripcion">Descripción:</label>
         <textarea
           id="descripcion"
+          name="descripcion"
           className="form-control"
-          value={servicio.descripcion}
+          value={servicio.descripcion || ""}
           onChange={handleChange}
         />
       </div>
@@ -62,8 +84,9 @@ export const EditServicioPage = () => {
         <input
           type="date"
           id="fechaInicio"
+          name="fechaInicio"
           className="form-control"
-          value={servicio.fechaInicio}
+          value={servicio.fechaInicio || ""}
           onChange={handleChange}
         />
       </div>
@@ -72,8 +95,9 @@ export const EditServicioPage = () => {
         <input
           type="date"
           id="fechaFin"
+          name="fechaFin"
           className="form-control"
-          value={servicio.fechaFin}
+          value={servicio.fechaFin || ""}
           onChange={handleChange}
         />
       </div>
@@ -82,8 +106,9 @@ export const EditServicioPage = () => {
         <input
           type="number"
           id="cupo"
+          name="cupo"
           className="form-control"
-          value={servicio.cupo}
+          value={servicio.cupo || ""}
           onChange={handleChange}
         />
       </div>
@@ -92,15 +117,16 @@ export const EditServicioPage = () => {
         <input
           type="number"
           id="precio"
+          name="precio"
           className="form-control"
-          value={servicio.precio}
+          value={servicio.precio || ""}
           onChange={handleChange}
         />
       </div>
       <button className="btn btn-primary" onClick={handleUpdateServicio}>
         Actualizar Servicio
       </button>
-      <Link to="/Servicio" className="btn btn-secondary">
+      <Link to="/servicios" className="btn btn-secondary">
         Cancelar
       </Link>
     </div>

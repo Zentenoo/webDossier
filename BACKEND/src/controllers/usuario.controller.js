@@ -52,12 +52,12 @@ const registerUsuario = async (req, res, next) => {
 };
 
 const getAllUsuarios = async (req, res, next) => {
-  try {
-    const allUsuarios = await Usuario.getAll();
-    res.json(allUsuarios);
-  } catch (error) {
-    next(error);
-  }
+    try {
+        const allUsuarios = await Usuario.getAll();
+        res.json(allUsuarios);
+    } catch (error) {
+        next(error);
+    }
 };
 
 const getUsuarioById = async (req, res, next) => {

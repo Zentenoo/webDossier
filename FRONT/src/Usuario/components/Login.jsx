@@ -75,7 +75,7 @@ export const Login = () => {
           </div>
         </form>
         <div className="text-center mt-3">
-          <p>¿No tienes una cuenta? <a href="usuario/crear">Regístrate aquí</a></p>
+          <p>¿No tienes una cuenta? <a href="usuario/register">Regístrate aquí</a></p>
         </div>
       </div>
     </div>

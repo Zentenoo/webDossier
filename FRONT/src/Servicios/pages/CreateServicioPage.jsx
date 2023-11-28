@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createServicio } from "../helpers/helpercreateServicio";
+import { getAllPlato } from "../../Plato/helpers/getAllPlato";
+import {createServPlato} from "../ServPlato/helpers/helpercreateServPlato"
+import '@yaireo/tagify/dist/tagify.css';
+import Tagify from '@yaireo/tagify';
 
 export const CreateServicioPage = () => {
   const [nombre, setNombre] = useState("");
@@ -9,8 +15,40 @@ export const CreateServicioPage = () => {
   const [fechaFin, setFechaFin] = useState("");
   const [cupo, setCupo] = useState(0);
   const [precio, setPrecio] = useState(0);
-  const [foto, setFoto] = useState("");
+  const [foto, setFoto] = useState(null);
   const [error, setError] = useState("");
+  const [platos, setPlatos] = useState([]);
+  const tagifyRef = useRef(null);
+  const [isTagifyInitialized, setIsTagifyInitialized] = useState(false);
+
+  useEffect(() => {
+    getAllPlato()
+      .then((platos) => {
+        if (Array.isArray(platos)) {
+          setPlatos(platos);
+          console.log("Platos obtenidos de la base de datos:", platos);
+        } else {
+          setError("Error al obtener la lista de platos");
+        }
+      })
+      .catch((error) => {
+        setError("Error al obtener la lista de platos");
+      });
+  }, []);
+
+  useEffect(() => {
+    if (tagifyRef.current && platos.length > 0 && !tagifyRef.current.tagify) {
+      const tagify = new Tagify(tagifyRef.current, {
+        whitelist: platos.map((plato) => plato.nombre),
+        dropdown: {
+          enabled: 1,
+        },
+      });
+
+      tagifyRef.current.tagify = tagify;
+      setIsTagifyInitialized(true);
+    }
+  }, [platos, tagifyRef]);
 
   const handleCrearServicio = async () => {
     if (nombre.trim() === "" || descripcion.trim() === "") {
@@ -25,16 +63,47 @@ export const CreateServicioPage = () => {
       fechaFin,
       cupo,
       precio,
-      foto,
+      foto: foto ? await convertToBase64(foto) : null,
     };
-    const exito = await createServicio(nuevoServicio);
+    const exitoServicio = await createServicio(nuevoServicio);
 
-    if (exito) {
-      // Redirige a la página de lista de servicios después de la creación
-      window.location.href = "/Servicio";
+    if (exitoServicio) {
+      if (isTagifyInitialized) {
+        const platosSeleccionados = tagifyRef.current?.tagify.value.map((platoNombre) => {
+          const plato = platos.find((p) => p.nombre === platoNombre);
+          return plato ? plato.id : null;
+        }).filter(Boolean);
+
+        console.log("IDs de los platos seleccionados:", platosSeleccionados); // Verifica los IDs seleccionados antes de enviarlos
+
+        const nuevoServPlato = {
+          servicioId: nuevoServicio.id, // Reemplaza 'id' con la propiedad correcta que identifica al servicio recién creado
+          platos: platosSeleccionados,
+        };
+        console.log("Objeto nuevoServPlato:", nuevoServPlato); // Verifica el objeto a enviar
+
+        const exitoServPlato = await createServPlato(nuevoServPlato);
+
+        if (exitoServPlato) {
+          window.location.href = "/servicios";
+        } else {
+          setError("Error al crear el ServPlato");
+        }
+      } else {
+        setError("Tagify no se ha inicializado correctamente");
+      }
     } else {
       setError("Error al crear el servicio");
     }
+  };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   };
 
   return (
@@ -109,13 +178,22 @@ export const CreateServicioPage = () => {
           onChange={(e) => setFoto(e.target.files[0])}
         />
       </div>
+      <div className="form-group">
+        <label htmlFor="platos">Platos:</label>
+        <input
+          id="platos"
+          className="form-control"
+          placeholder="Agregar platos"
+          ref={tagifyRef}
+        />
+      </div>
+      <br />
       <button className="btn btn-primary" onClick={handleCrearServicio}>
         Crear Servicio
       </button>
-      <Link to="/Servicio" className="btn btn-secondary">
+      <Link to="/servicios" className="btn btn-secondary">
         Cancelar
       </Link>
     </div>
   );
 };
-

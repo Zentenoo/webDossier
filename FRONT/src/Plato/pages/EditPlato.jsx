@@ -1,61 +1,96 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { getAllTipoPlato } from "../../TipoPlato/helpers/getAllTipoPlato";
 import { Link, useParams } from 'react-router-dom';
+import { getAllTipoPlato } from "../../TipoPlato/helpers/getAllTipoPlato";
 import { getPlato } from "../helpers/getPlato";
 
-export const EditPlato = () => {
-
+export const EditPlato = ({ plato }) => {
     const [tipoPlato, setTipoPlato] = useState([]);
-    const params = useParams();
+    const [formData, setFormData] = useState({
+        strNombre: "",
+        strDescripcion: "",
+        strFoto: "",
+        boolEstado: true,
+        tipoPlatoId: "",
+    });
+    // const params = useParams();
     const getTipoPlatos = async () => {
-        const data = await getAllTipoPlato();
-        setTipoPlato(data);
+        try {
+            const data = await getAllTipoPlato();
+            setTipoPlato(data);
+        } catch (error) {
+            console.error("Error al obtener los tipos de plato:", error);
+        }
     };
 
-    const getListPlato = async (id) => {
-        const data = await getPlato(id);
-        return data;
+    const getPlatoData = async () => {
+        try {
+            const data = await plato;
+            console.log(data)
+            return data;
+        } catch (error) {
+            console.error("Error al obtener los datos del plato:", error);
+        }
     };
-
-
-
     useEffect(() => {
         getTipoPlatos();
-        getListPlato(params.id)
-            .then((data) => {
-                document.getElementById("strNombre").value = data.nombre;
-                document.getElementById("strDescripcion").value = data.descripcion;
-                document.getElementById("strFoto").value = data.foto;
-                document.getElementById("boolEstado").value = data.estado;
-                const tipoPlatoEncontrado = tipoPlato.find((tipoPlato) => tipoPlato.id === data.tipoplatoid);
-                if (tipoPlatoEncontrado) {
-                    document.getElementById("strTipoPlatoId").value = tipoPlatoEncontrado.id;
-                }
+        getPlatoData().then((data) => {
+            setFormData({
+                strNombre: data.nombre,
+                strDescripcion: data.descripcion,
+                strFoto: data.foto,
+                boolEstado: data.estado,
+                tipoPlatoId: data.tipoPlatoId,
             });
-    }, [params.id]);
-
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        await axios.put(`http://localhost:3000/plato/${params.id}`, {
-            "nombre": document.getElementById("strNombre").value,
-            "descripcion": document.getElementById("strDescripcion").value,
-            "estado": document.getElementById("boolEstado").value,
-            "foto": document.getElementById("strFoto").value,
-            "tipoPlatoId": document.getElementById("strTipoPlatoId").value,
         });
-        window.location.href = "/plato";
+    }, [plato]);
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64String = e.target.result;
+                setFormData({
+                    ...formData,
+                    strFoto: base64String,
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Enviar datos al servidor
+            await axios.put(`http://localhost:3000/plato/${plato.id}`, {
+                nombre: formData.strNombre,
+                descripcion: formData.strDescripcion,
+                estado: formData.boolEstado,
+                foto: formData.strFoto,
+                tipoPlatoId: document.getElementById(`strTipoPlatoId${plato.id}`).value,
+            });
+            window.location.href = "/plato";
+        } catch (error) {
+            console.error("Error al enviar el formulario:", error);
+        }
+    };
+
+    const handleCancelar = () => {
+        window.location.href = "/plato";
+    }
 
     return (
         <div className="container mt-10">
             <section className="d-flex justify-content-center">
-                <div className="card col-sm-6 p-3">
-                    <div className="mb-3">
-                        <h4>Editar Plato</h4>
-                    </div>
+                <div>
                     <div className="mb-2">
                         <form onSubmit={onSubmit} action="">
                             <div className="mb-3">
@@ -65,6 +100,8 @@ export const EditPlato = () => {
                                     type="text"
                                     id="strNombre"
                                     name="strNombre"
+                                    value={formData.strNombre}
+                                    onChange={handleChange}
                                     required
                                 />
                             </div>
@@ -75,49 +112,65 @@ export const EditPlato = () => {
                                     type="text"
                                     id="strDescripcion"
                                     name="strDescripcion"
+                                    value={formData.strDescripcion}
+                                    onChange={handleChange}
                                     required
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="strFoto" className="form-label">Foto</label>
+                                <label htmlFor="foto" className="form-label">Foto Nueva</label>
                                 <input
                                     className="form-control"
-                                    type="text"
-                                    id="strFoto"
-                                    name="strFoto"
+                                    type="file"
+                                    id="foto"
+                                    name="foto"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
                                 />
                             </div>
+                            {formData.strFoto && (
+                                <div className="mb-3">
+                                    <label className="form-label">Foto Actual: </label>
+                                    <img
+                                        src={formData.strFoto}
+                                        alt="Foto Actual"
+                                        style={{ maxWidth: "100px", maxHeight: "100px" }}
+                                    />
+                                </div>
+                            )}
                             <div className="mb-3">
                                 <label htmlFor='boolEstado' className="form-label">Estado: </label>
                                 <select
                                     id='boolEstado'
                                     name='boolEstado'
+                                    value={formData.boolEstado}
+                                    onChange={handleChange}
                                     className="form-select"
                                 >
                                     <option value={true}>Activo</option>
                                     <option value={false}>Inactivo</option>
                                 </select>
                             </div>
-                            <div className="d-flex justify-content-evenly">
-                                {tipoPlato.length > 0 && (
-                                    <div className="mb-3">
-                                        <label htmlFor="strTipoPlatoId" className="form-label">Tipo: </label>
-                                        <select
-                                            id="strTipoPlatoId"
-                                            name="strTipoPlatoId"
-                                            className='form-select-sm'
-                                        >
-                                            {tipoPlato.map(tipoPlato =>
-                                                <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre} </option>
-                                            )}
-                                        </select>
-                                    </div>
-                                )}
-                            </div>
+                            {tipoPlato.length > 0 && (
+                                <div className="mb-3">
+                                    <label htmlFor={`strTipoPlatoId${plato.id}`} className="form-label">Tipo: </label>
+                                    <select
+                                        id={`strTipoPlatoId${plato.id}`}
+                                        name={`strTipoPlatoId${plato.id}`}
+                                        className='form-select'
 
+                                    >
+                                        {tipoPlato.map(tipoPlato =>
+                                            <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre}</option>
+                                        )}
+                                    </select>
+                                </div>
+                            )}
                             <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Editar</button>
-                                <Link to="/plato" className="btn btn-secondary">Cancelar</Link>
+                                <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
                             </div>
                         </form>
                     </div>

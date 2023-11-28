@@ -41,7 +41,27 @@ export const ProductoList = () => {
                                 </p>
                                 <div className="d-flex justify-content-between">
                                     <a onClick={() => navigate(`/producto/${producto.id}`)} className="btn btn-primary"><i className="bi bi-pencil-square"></i> Editar</a>
-                                    <button onClick={async () => await eliminar(producto.id)} type="button" className="btn btn-danger"><i className="bi bi-trash"></i> Eliminar</button>
+                                    <div>
+                                        <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${producto.id}`}>
+                                            <i className="bi bi-trash"></i> Eliminar
+                                        </button>
+                                        <div className="modal fade" id={`exampleModal${producto.id}`} tabIndex="-1" aria-labelledby={`exampleModalLabel${producto.id}`} aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id={`exampleModalLabel${producto.id}`}>Desea eliminar el producto "{producto.nombre}"?</h5>
+                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div className="modal-header d-flex justify-content-between">
+                                                        <button onClick={async () => await eliminar(producto.id)} type="button" className="btn btn-danger" data-bs-dismiss="modal">
+                                                            <i className="bi bi-trash"></i> Eliminar
+                                                        </button>
+                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

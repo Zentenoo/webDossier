@@ -1,6 +1,21 @@
-GET http://localhost:3000/plato
+POST  http://localhost:3000/reserva
+Content-Type: application/json
+
+{
+    "fechareserva":"2023-11-18", 
+    "fechaservicio":"2023-11-18", 
+    "cupo":25, 
+    "observacion":"Reserva Grande", 
+    "estado":true, 
+    "total":50, 
+    "usuarioid":2, 
+    "servicioid":8
+}
+
 ###
-GET http://localhost:3000/tipo_plato
+GET http://localhost:3000/reserva
+###
+GET http://localhost:3000/usuario
 ###
 
 DELETE http://localhost:3000/plato/5
@@ -16,10 +31,9 @@ Content-Type: application/json
     "descripcion":"descripcion 1"
 }
 ###
-POST  http://localhost:3000/servicios
+PUT  http://localhost:3000/reserva/2
 Content-Type: application/json
 
 {
-    "nombre":"plato 2",
-    "descripcion":"descripcion 2"
+    "estado":true
 }
