@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllTipoPlato } from "../helpers/getAllTipoPlato";
 import { deleteTipoPlato } from "../helpers/helperdeleteTipoPlato";
+import { EditTipoPlatoPage } from "../pages/EditTipoPlatoPage";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const TipoPlatoList = () => {
   const [tipoPlatos, setTipoPlato] = useState([]);
@@ -20,11 +24,22 @@ export const TipoPlatoList = () => {
     getListPlato();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,nombre) => {
     const success = await deleteTipoPlato(id);
     if (success) {
       // Si la eliminación es exitosa, actualiza la lista de tipos de plato
       getListPlato(); // Recarga la lista después de la eliminación exitosa
+      toast.success(`Tipo de Plato "${nombre}" eliminado con éxito`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      
     } else {
       // Maneja el fallo de eliminación (por ejemplo, muestra un mensaje de error)
       console.error("Failed to delete TipoPlato with ID: ", id);
@@ -33,6 +48,7 @@ export const TipoPlatoList = () => {
 
   return (
     <div>
+      <ToastContainer />
       <table className="table table-dark table-striped">
         <thead>
           <tr>
@@ -67,7 +83,7 @@ export const TipoPlatoList = () => {
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-header d-flex justify-content-between">
-                          <button onClick={() => handleDelete(plato.id)} type="button" class="btn btn-danger" data-bs-dismiss="modal"><i className="bi bi-trash"></i> Eliminar</button>
+                          <button onClick={() => handleDelete(plato.id,plato.nombre)} type="button" class="btn btn-danger" data-bs-dismiss="modal"><i className="bi bi-trash"></i> Eliminar</button>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                       </div>

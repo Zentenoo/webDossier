@@ -8,16 +8,26 @@ export const EditServicioPage = () => {
   const [servicio, setServicio] = useState({});
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    getServicioById(id).then((data) => {
-      if (data === "error") {
-        setError("Error al obtener el servicio");
-        return;
+  const getServicioWithFechasById = (id) => {
+    return fetch(`http://localhost:3000/servicio/${id}`).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return "error";
       }
-
-      setServicio(data);
     });
-  }, [id]);
+  };
+
+useEffect(() => {
+  getServicioWithFechasById(id).then((data) => {
+    if (data === "error") {
+      setError("Error al obtener el servicio");
+      return;
+    }
+
+    setServicio(data);
+  });
+}, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
