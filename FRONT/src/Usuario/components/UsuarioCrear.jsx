@@ -42,19 +42,19 @@ export const UsuarioCrear = () => {
             reader.readAsDataURL(file);
         }
     };
+    const handleCancelar = () => {
+        window.location.href = "/usuario";
+    }
     return (
-        <div class="container mt-10">
-            <section class="d-flex justify-content-center">
-                <div class="card col-sm-6 p-3">
-                    <div class="mb-3">
-                        <h1>Crear Usuario</h1>
-                    </div>
-                    <div class="mb-2">
+        <div className="container">
+            <section className="d-flex justify-content-center">
+                <div>
+                    <div className="mb-2">
                         <form onSubmit={handleSubmit}>
-                            <div class="mb-3">
-                                <label htmlFor="nombre" class="form-label">Nombre:</label>
+                            <div className="mb-3">
+                                <label htmlFor="nombre" className="form-label">Nombre:</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="text"
                                     id="nombre"
                                     name="nombre"
@@ -63,10 +63,10 @@ export const UsuarioCrear = () => {
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor="contraseña" class="form-label">Contraseña:</label>
+                            <div className="mb-3">
+                                <label htmlFor="contraseña" className="form-label">Contraseña:</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="password"
                                     id="contraseña"
                                     name="contraseña"
@@ -75,10 +75,10 @@ export const UsuarioCrear = () => {
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor="apellido" class="form-label">Apellido:</label>
+                            <div className="mb-3">
+                                <label htmlFor="apellido" className="form-label">Apellido:</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="text"
                                     id="apellido"
                                     name="apellido"
@@ -87,10 +87,10 @@ export const UsuarioCrear = () => {
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor="telefono" class="form-label">Teléfono:</label>
+                            <div className="mb-3">
+                                <label htmlFor="telefono" className="form-label">Teléfono:</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="tel"
                                     id="telefono"
                                     name="telefono"
@@ -99,10 +99,10 @@ export const UsuarioCrear = () => {
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor="correo" class="form-label">Correo:</label>
+                            <div className="mb-3">
+                                <label htmlFor="correo" className="form-label">Correo:</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="email"
                                     id="correo"
                                     name="correo"
@@ -111,8 +111,8 @@ export const UsuarioCrear = () => {
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor="foto" class="form-label">Seleccionar Foto:</label>
+                            <div className="mb-3">
+                                <label htmlFor="foto" className="form-label">Seleccionar Foto:</label>
                                 <input
                                 className="form-control"
                                     type="file"
@@ -124,8 +124,10 @@ export const UsuarioCrear = () => {
                             </div>
 
                             <div className="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                                <Link to="/usuario" className="btn btn-secondary">Cancelar</Link>
+                                <button className="btn btn-primary" type="submit">Agregar</button>
+                                <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>                            
                             </div>
                         </form>
                     </div>

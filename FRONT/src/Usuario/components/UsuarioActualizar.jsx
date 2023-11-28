@@ -1,41 +1,46 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
 
-export const UsuarioActualizar = () => {
+export const UsuarioActualizar = ({ usuario }) => {
     const [usuarioData, setUsuarioData] = useState({
-        nombre: "",
-        contraseña: "",
-        apellido: "",
-        telefono: "",
-        correo: "",
-        estado: true, 
-        esadmin: false,
-        esanfitrion:false,
-        foto: ""
+        Nombre: "",
+        Contraseña: "",
+        Apellido: "",
+        Telefono: "",
+        Correo: "",
+        Estado: true,
+        Esadmin: false,
+        Esanfitrion: false,
+        Foto: ""
     });
-
-    const params = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/usuario/${params.id}`);
-                const userData = response.data;
-                console.log(userData)
-                setUsuarioData(userData);
+                setUsuarioData({
+                    ...usuarioData,
+                    Nombre: usuario.Nombre,
+                    Contraseña: usuario.Contraseña,
+                    Apellido: usuario.Apellido,
+                    Telefono: usuario.Telefono,
+                    Correo: usuario.Correo,
+                    Estado: usuario.Estado,
+                    Esadmin: usuario.Esadmin,
+                    Esanfitrion: usuario.Esanfitrion,
+                    Foto: usuario.Foto
+                });
             } catch (error) {
                 console.error("Error al obtener los datos del usuario:", error);
             }
         };
         fetchData();
-    }, [params.id]);
+    }, [usuario]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:3000/usuario/${params.id}`, usuarioData);
-            
+            await axios.put(`http://localhost:3000/usuario/${usuario.id}`, usuarioData);
+
             window.location.href = "/usuario";
         } catch (error) {
             console.error("Error al actualizar el usuario:", error);
@@ -46,32 +51,31 @@ export const UsuarioActualizar = () => {
         const { name, value } = e.target;
         setUsuarioData({
             ...usuarioData,
-            [name]: value, 
+            [name]: value,
         });
     }
     const handleFileChange = (e) => {
-        const file = e.target.files[0]; 
+        const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const base64String = e.target.result;
                 setUsuarioData({
                     ...usuarioData,
-                    foto: base64String, 
+                    foto: base64String,
                 });
             };
             reader.readAsDataURL(file);
         }
     };
-    
 
+    const handleCancelar = () => {
+        window.location.href = "/usuario";
+    }
     return (
         <div className="container mt-10">
             <section className="d-flex justify-content-center">
-                <div className="card col-sm-6 p-3">
-                    <div className="mb-3">
-                        <h4>Editar Usuario</h4>
-                    </div>
+                <div>
                     <div className="mb-2">
                         <form onSubmit={onSubmit} action="">
                             <div className="mb-3">
@@ -79,21 +83,19 @@ export const UsuarioActualizar = () => {
                                 <input
                                     className="form-control"
                                     type="text"
-                                    id="nombre"
                                     name="nombre"
-                                    value={usuarioData.nombre}
+                                    value={usuarioData.Nombre}
                                     onChange={handleInputChange}
                                     required
                                 />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="contrasena" className="form-label">Contraseña</label>
+                                <label htmlFor="contraseña" className="form-label">Contraseña</label>
                                 <input
                                     className="form-control"
                                     type="password"
-                                    id="contraseña"
                                     name="contraseña"
-                                    value={usuarioData.contraseña}
+                                    value={usuarioData.Contraseña}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -103,9 +105,8 @@ export const UsuarioActualizar = () => {
                                 <input
                                     className="form-control"
                                     type="text"
-                                    id="apellido"
                                     name="apellido"
-                                    value={usuarioData.apellido}
+                                    value={usuarioData.Apellido}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -115,9 +116,8 @@ export const UsuarioActualizar = () => {
                                 <input
                                     className="form-control"
                                     type="tel"
-                                    id="telefono"
                                     name="telefono"
-                                    value={usuarioData.telefono}
+                                    value={usuarioData.Telefono}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -126,40 +126,38 @@ export const UsuarioActualizar = () => {
                                 <input
                                     className="form-control"
                                     type="email"
-                                    id="correo"
                                     name="correo"
-                                    value={usuarioData.correo}
+                                    value={usuarioData.Correo}
                                     onChange={handleInputChange}
                                     required
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="foto" class="form-label">Foto Nueva</label>
+
+                            <div className="mb-3">
+                                <label htmlFor="foto" className="form-label">Foto Nueva</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="file"
-                                    id="foto"
                                     name="foto"
                                     onChange={handleFileChange}
                                     accept="image/*"
                                 />
                             </div>
-                            {usuarioData.foto && (
+                            {usuarioData.Foto && (
                                 <div className="mb-3">
                                     <label className="form-label">Foto Actual: </label>
                                     <img
-                                        src={usuarioData.foto}
+                                        src={usuarioData.Foto}
                                         alt="Foto Actual"
                                         style={{ maxWidth: "100px", maxHeight: "100px" }}
                                     />
                                 </div>
                             )}
-                            <div class="mb-3">
-                                <label htmlFor='estado' class="form-label">Estado: </label>
+                            <div className="mb-3">
+                                <label htmlFor='estado' className="form-label">Estado: </label>
                                 <select
-                                    id='estado'
                                     name='estado'
-                                    value={usuarioData.estado ? "true" :"false"}
+                                    value={usuarioData.Estado ? "true" : "false"}
                                     onChange={handleInputChange}
                                     className="form-select"
                                 >
@@ -168,37 +166,37 @@ export const UsuarioActualizar = () => {
                                 </select>
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor='esadmin' class="form-label">Admin: </label>
+                            <div className="mb-3">
+                                <label htmlFor='esadmin' className="form-label">Admin: </label>
                                 <select
-                                    id='esadmin'
                                     name='esadmin'
-                                    value={usuarioData.esadmin ? "true" :"false"}
+                                    value={usuarioData.Esadmin ? "true" : "false"}
                                     onChange={handleInputChange}
-                                    class="form-select"
+                                    className="form-select"
                                 >
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
                                 </select>
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor='esanfitrion' class="form-label">Anfitrion: </label>
+                            <div className="mb-3">
+                                <label htmlFor='esanfitrion' className="form-label">Anfitrion: </label>
                                 <select
-                                    id='esanfitrion'
                                     name='esanfitrion'
-                                    value={usuarioData.esanfitrion ? "true" :"false"}
+                                    value={usuarioData.Esanfitrion ? "true" : "false"}
                                     onChange={handleInputChange}
-                                    class="form-select"
+                                    className="form-select"
                                 >
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
                                 </select>
                             </div>
-                            
-                            <div class="d-flex justify-content-between">
+
+                            <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Editar</button>
-                                <Link to="/usuario" className="btn btn-secondary">Cancelar</Link>
+                                <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
                             </div>
                         </form>
                     </div>

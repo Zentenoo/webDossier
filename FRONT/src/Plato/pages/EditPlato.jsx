@@ -4,15 +4,16 @@ import { Link, useParams } from 'react-router-dom';
 import { getAllTipoPlato } from "../../TipoPlato/helpers/getAllTipoPlato";
 import { getPlato } from "../helpers/getPlato";
 
-export const EditPlato = () => {
+export const EditPlato = ({ plato }) => {
     const [tipoPlato, setTipoPlato] = useState([]);
     const [formData, setFormData] = useState({
-        strNombre: '',
-        strDescripcion: '',
-        strFoto: '',
+        strNombre: "",
+        strDescripcion: "",
+        strFoto: "",
         boolEstado: true,
+        tipoPlatoId: "",
     });
-    const params = useParams();
+    // const params = useParams();
     const getTipoPlatos = async () => {
         try {
             const data = await getAllTipoPlato();
@@ -22,26 +23,27 @@ export const EditPlato = () => {
         }
     };
 
-    const getPlatoData = async (id) => {
+    const getPlatoData = async () => {
         try {
-            const data = await getPlato(id);
+            const data = await plato;
+            console.log(data)
             return data;
         } catch (error) {
             console.error("Error al obtener los datos del plato:", error);
         }
     };
-
     useEffect(() => {
         getTipoPlatos();
-        getPlatoData(params.id).then((data) => {
+        getPlatoData().then((data) => {
             setFormData({
                 strNombre: data.nombre,
                 strDescripcion: data.descripcion,
                 strFoto: data.foto,
                 boolEstado: data.estado,
+                tipoPlatoId: data.tipoPlatoId,
             });
         });
-    }, [params.id]);
+    }, [plato]);
 
     const handleChange = (e) => {
         setFormData({
@@ -64,34 +66,31 @@ export const EditPlato = () => {
             reader.readAsDataURL(file);
         }
     }
-
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
             // Enviar datos al servidor
-            await axios.put(`http://localhost:3000/plato/${params.id}`, {
+            await axios.put(`http://localhost:3000/plato/${plato.id}`, {
                 nombre: formData.strNombre,
                 descripcion: formData.strDescripcion,
                 estado: formData.boolEstado,
                 foto: formData.strFoto,
-                "tipoPlatoId": document.getElementById("strTipoPlatoId").value,
+                tipoPlatoId: document.getElementById(`strTipoPlatoId${plato.id}`).value,
             });
-
-            // Navegar de vuelta a la lista de platos
             window.location.href = "/plato";
         } catch (error) {
             console.error("Error al enviar el formulario:", error);
-            // Manejar el error (por ejemplo, mostrar un mensaje al usuario)
         }
     };
+
+    const handleCancelar = () => {
+        window.location.href = "/plato";
+    }
 
     return (
         <div className="container mt-10">
             <section className="d-flex justify-content-center">
-                <div className="card col-sm-6 p-3">
-                    <div className="mb-3">
-                        <h4>Editar Plato</h4>
-                    </div>
+                <div>
                     <div className="mb-2">
                         <form onSubmit={onSubmit} action="">
                             <div className="mb-3">
@@ -118,10 +117,10 @@ export const EditPlato = () => {
                                     required
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label htmlFor="foto" class="form-label">Foto Nueva</label>
+                            <div className="mb-3">
+                                <label htmlFor="foto" className="form-label">Foto Nueva</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="file"
                                     id="foto"
                                     name="foto"
@@ -152,25 +151,26 @@ export const EditPlato = () => {
                                     <option value={false}>Inactivo</option>
                                 </select>
                             </div>
-                            <div className="d-flex justify-content-evenly">
-                                {tipoPlato.length > 0 && (
-                                    <div className="mb-3">
-                                        <label htmlFor="strTipoPlatoId" className="form-label">Tipo: </label>
-                                        <select
-                                            id="strTipoPlatoId"
-                                            name="strTipoPlatoId"
-                                            className='form-select-sm'
-                                        >
-                                            {tipoPlato.map(tipoPlato =>
-                                                <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre} </option>
-                                            )}
-                                        </select>
-                                    </div>
-                                )}
-                            </div>
+                            {tipoPlato.length > 0 && (
+                                <div className="mb-3">
+                                    <label htmlFor={`strTipoPlatoId${plato.id}`} className="form-label">Tipo: </label>
+                                    <select
+                                        id={`strTipoPlatoId${plato.id}`}
+                                        name={`strTipoPlatoId${plato.id}`}
+                                        className='form-select'
+
+                                    >
+                                        {tipoPlato.map(tipoPlato =>
+                                            <option key={tipoPlato.id} value={tipoPlato.id}> {tipoPlato.nombre}</option>
+                                        )}
+                                    </select>
+                                </div>
+                            )}
                             <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Editar</button>
-                                <Link to="/plato" className="btn btn-secondary">Cancelar</Link>
+                                <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>
                             </div>
                         </form>
                     </div>

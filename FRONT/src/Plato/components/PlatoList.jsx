@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllPlato } from "../helpers/getAllPlato";
 import { useNavigate } from "react-router-dom";
 import { deletePlato } from "../helpers/deletePlato";
+import { EditPlato } from "../pages/EditPlato";
 
 export const PlatoList = () => {
     const [plato, setPlato] = useState([]);
@@ -45,9 +46,24 @@ export const PlatoList = () => {
                                     Estado: {plato.estado ? <i className="bi bi-check-circle"></i> : <i className="bi bi-x-circle"></i>}
                                 </p>
                                 <div className="d-flex justify-content-between">
-                                    <a onClick={() => navigate(`/plato/${plato.id}`)} className="btn btn-primary">
-                                        <i className="bi bi-pencil-square"></i> Editar
-                                    </a>
+                                    <div>
+                                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target={`#exampleModalLabel${plato.id}e`}>
+                                            <i className="bi bi-pencil-square"></i> Editar
+                                        </button>
+                                        <div className="modal fade" id={`exampleModalLabel${plato.id}e`} tabIndex="-1" aria-labelledby={`#exampleModalLabel${plato.id}e`} aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id={`exampleModalLabel${plato.id}e`} style={{ color: "black" }}>Editar Plato "{plato.nombre}"?</h5>
+                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div className="modal-header d-flex justify-content-between">
+                                                        <EditPlato plato={plato}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div>
                                         <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${plato.id}`}>
                                             <i className="bi bi-trash"></i> Eliminar

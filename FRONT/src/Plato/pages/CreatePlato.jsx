@@ -59,13 +59,14 @@ export const CreatePlatoPage = () => {
         }
     }
 
+    const handleCancelar = () => {
+        window.location.href = "/plato";
+    }
+
     return (
-        <div className="container mt-10">
+        <div className="container">
             <section className="d-flex justify-content-center ">
-                <div className="card col-sm-6 p-3">
-                    <div className="mb-3">
-                        <h4>Crear Plato</h4>
-                    </div>
+                <div className="">
                     <div className="mb-2">
                         <form onSubmit={onSubmit} action="">
                             <div className="mb-3">
@@ -132,7 +133,9 @@ export const CreatePlatoPage = () => {
 
                             <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Agregar</button>
-                                <Link to="/plato" className="btn btn-secondary">Cancelar</Link>
+                                <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>                            
                             </div>
                         </form>
                     </div>
