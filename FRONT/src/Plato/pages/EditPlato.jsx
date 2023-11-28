@@ -32,7 +32,6 @@ export const EditPlato = ({ plato }) => {
             console.error("Error al obtener los datos del plato:", error);
         }
     };
-    console.log(plato)
     useEffect(() => {
         getTipoPlatos();
         getPlatoData().then((data) => {

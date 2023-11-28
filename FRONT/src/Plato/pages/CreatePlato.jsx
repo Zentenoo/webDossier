@@ -135,7 +135,8 @@ export const CreatePlatoPage = () => {
                                 <button className="btn btn-primary" type="submit">Agregar</button>
                                 <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                                     Cancelar
-                                </button>                            </div>
+                                </button>                            
+                            </div>
                         </form>
                     </div>
                 </div>

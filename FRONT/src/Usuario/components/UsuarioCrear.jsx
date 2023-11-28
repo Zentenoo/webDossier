@@ -42,13 +42,13 @@ export const UsuarioCrear = () => {
             reader.readAsDataURL(file);
         }
     };
+    const handleCancelar = () => {
+        window.location.href = "/usuario";
+    }
     return (
-        <div class="container mt-10">
+        <div class="container">
             <section class="d-flex justify-content-center">
-                <div class="card col-sm-6 p-3">
-                    <div class="mb-3">
-                        <h1>Crear Usuario</h1>
-                    </div>
+                <div>
                     <div class="mb-2">
                         <form onSubmit={handleSubmit}>
                             <div class="mb-3">
@@ -124,8 +124,10 @@ export const UsuarioCrear = () => {
                             </div>
 
                             <div className="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                                <Link to="/usuario" className="btn btn-secondary">Cancelar</Link>
+                                <button className="btn btn-primary" type="submit">Agregar</button>
+                                <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                    Cancelar
+                                </button>                            
                             </div>
                         </form>
                     </div>
