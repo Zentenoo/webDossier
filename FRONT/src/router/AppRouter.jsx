@@ -1,4 +1,4 @@
-import {Routes, Route} from "react-router-dom"
+import {Routes, Route, useLocation} from "react-router-dom"
 import { InicioRoutes } from "../inicio/InicioRoutes"
 import { UsuariosRoute } from "../Usuario/routes/UsuarioRoute"
 import { TipoPlatoRoute } from "../TipoPlato/routes/TipoPlatoRoute"
@@ -7,10 +7,15 @@ import { PlatoRoutes } from "../Plato/routes/PlatoRoutes"
 import { ProductoRoute } from "../Producto/routes/ProductoRoute"
 import { ReservaRoutes } from "../Reserva/routes/ReservaRoutes"
 
+import { useContext} from "react"
+import { AuthContext } from "../Context/Authcontext"
+
 export const AppRouter = () => {
+    const { isLoggedIn } = useContext(AuthContext);
     return(
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            {isLoggedIn && (
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">DossierUdi</a>
                     <div className="navbar-collapse" id="navbarNav">
@@ -38,6 +43,7 @@ export const AppRouter = () => {
 
                 </div>
             </nav>
+            )}
                 <Routes>
                     <Route path="/*" element={<InicioRoutes/>}></Route>
                     <Route path="/usuario/*" element={<UsuariosRoute/>}></Route>

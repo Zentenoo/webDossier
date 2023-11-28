@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect} from 'react';
 import axios from 'axios';
-
+import { AuthContext } from '../../Context/Authcontext';
 export const Login = () => {
+  
+
+
   const [credentials, setCredentials] = useState({
     correo: '',
     contraseña: '',
@@ -17,13 +20,19 @@ export const Login = () => {
     });
   };
 
+  const { setIsLoggedIn } = useContext(AuthContext);
+  useEffect(() => {
+    setIsLoggedIn(false);
+  }, [setIsLoggedIn]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/login', credentials);
-      console.log(response.data);
-
-      window.location.href = 'usuario/lista'
+      console.log(response.data)
+      setIsLoggedIn(true)
+      localStorage.setItem('isLoggedIn', 'true')
+      console.log("login",setIsLoggedIn)
+      window.location.href = '/inicio'
     } catch (error) {
     if (error.response) {
       const { data, status } = error.response;
