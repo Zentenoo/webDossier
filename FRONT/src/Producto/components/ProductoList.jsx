@@ -45,7 +45,7 @@ export const ProductoList = () => {
                                         <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${producto.id}`}>
                                             <i className="bi bi-trash"></i> Eliminar
                                         </button>
-                                        <div className="modal fade" id={`exampleModal${producto.id}`} tabindex="-1" aria-labelledby={`exampleModalLabel${producto.id}`} aria-hidden="true">
+                                        <div className="modal fade" id={`exampleModal${producto.id}`} tabIndex="-1" aria-labelledby={`exampleModalLabel${producto.id}`} aria-hidden="true">
                                             <div className="modal-dialog">
                                                 <div className="modal-content">
                                                     <div className="modal-header">

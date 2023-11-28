@@ -3,49 +3,37 @@ import axios from 'axios';
 
 export const UsuarioActualizar = ({ usuario }) => {
     const [usuarioData, setUsuarioData] = useState({
-        nombre: "",
-        contraseña: "",
-        apellido: "",
-        telefono: "",
-        correo: "",
-        estado: true,
-        esadmin: false,
-        esanfitrion: false,
-        foto: ""
+        Nombre: "",
+        Contraseña: "",
+        Apellido: "",
+        Telefono: "",
+        Correo: "",
+        Estado: true,
+        Esadmin: false,
+        Esanfitrion: false,
+        Foto: ""
     });
-    // const getUsuarios = async () => {
-    //     try {
-    //         const data = await usuario;
-    //         return data;
-    //     } catch (error) {
-    //         console.error("Error al obtener los datos del plato:", error);
-    //     }
-    // };
-
-    const fetchData = async () => {
-        try {
-            const data = await usuario;
-            return data;
-        } catch (error) {
-            console.error("Error al obtener los datos del usuario:", error);
-        }
-    };
 
     useEffect(() => {
-        fetchData().then((data) => {
-            console.log(data.Nombre)
-            setUsuarioData({
-                nombre: data.Nombre,
-                contraseña: data.Contraseña,
-                apellido: data.Apellido,
-                telefono: data.Telefono,
-                correo: data.Correo,
-                estado: data.Estado,
-                esadmin: data.Esadmin,
-                esanfitrion: data.Esanfitrion,
-                foto: data.Foto,
-            });
-        });
+        const fetchData = async () => {
+            try {
+                setUsuarioData({
+                    ...usuarioData,
+                    Nombre: usuario.Nombre,
+                    Contraseña: usuario.Contraseña,
+                    Apellido: usuario.Apellido,
+                    Telefono: usuario.Telefono,
+                    Correo: usuario.Correo,
+                    Estado: usuario.Estado,
+                    Esadmin: usuario.Esadmin,
+                    Esanfitrion: usuario.Esanfitrion,
+                    Foto: usuario.Foto
+                });
+            } catch (error) {
+                console.error("Error al obtener los datos del usuario:", error);
+            }
+        };
+        fetchData();
     }, [usuario]);
 
     const onSubmit = async (e) => {
@@ -96,7 +84,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="text"
                                     name="nombre"
-                                    value={usuarioData.nombre}
+                                    value={usuarioData.Nombre}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -107,7 +95,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="password"
                                     name="contraseña"
-                                    value={usuarioData.contraseña}
+                                    value={usuarioData.Contraseña}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -118,7 +106,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="text"
                                     name="apellido"
-                                    value={usuarioData.apellido}
+                                    value={usuarioData.Apellido}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -129,7 +117,7 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="tel"
                                     name="telefono"
-                                    value={usuarioData.telefono}
+                                    value={usuarioData.Telefono}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -139,37 +127,37 @@ export const UsuarioActualizar = ({ usuario }) => {
                                     className="form-control"
                                     type="email"
                                     name="correo"
-                                    value={usuarioData.correo}
+                                    value={usuarioData.Correo}
                                     onChange={handleInputChange}
                                     required
                                 />
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor="foto" class="form-label">Foto Nueva</label>
+                            <div className="mb-3">
+                                <label htmlFor="foto" className="form-label">Foto Nueva</label>
                                 <input
-                                    class="form-control"
+                                    className="form-control"
                                     type="file"
                                     name="foto"
                                     onChange={handleFileChange}
                                     accept="image/*"
                                 />
                             </div>
-                            {usuarioData.foto && (
+                            {usuarioData.Foto && (
                                 <div className="mb-3">
                                     <label className="form-label">Foto Actual: </label>
                                     <img
-                                        src={usuarioData.foto}
+                                        src={usuarioData.Foto}
                                         alt="Foto Actual"
                                         style={{ maxWidth: "100px", maxHeight: "100px" }}
                                     />
                                 </div>
                             )}
-                            <div class="mb-3">
-                                <label htmlFor='estado' class="form-label">Estado: </label>
+                            <div className="mb-3">
+                                <label htmlFor='estado' className="form-label">Estado: </label>
                                 <select
                                     name='estado'
-                                    value={usuarioData.estado ? "true" : "false"}
+                                    value={usuarioData.Estado ? "true" : "false"}
                                     onChange={handleInputChange}
                                     className="form-select"
                                 >
@@ -178,37 +166,37 @@ export const UsuarioActualizar = ({ usuario }) => {
                                 </select>
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor='esadmin' class="form-label">Admin: </label>
+                            <div className="mb-3">
+                                <label htmlFor='esadmin' className="form-label">Admin: </label>
                                 <select
                                     name='esadmin'
-                                    value={usuarioData.esadmin ? "true" : "false"}
+                                    value={usuarioData.Esadmin ? "true" : "false"}
                                     onChange={handleInputChange}
-                                    class="form-select"
+                                    className="form-select"
                                 >
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
                                 </select>
                             </div>
 
-                            <div class="mb-3">
-                                <label htmlFor='esanfitrion' class="form-label">Anfitrion: </label>
+                            <div className="mb-3">
+                                <label htmlFor='esanfitrion' className="form-label">Anfitrion: </label>
                                 <select
                                     name='esanfitrion'
-                                    value={usuarioData.esanfitrion ? "true" : "false"}
+                                    value={usuarioData.Esanfitrion ? "true" : "false"}
                                     onChange={handleInputChange}
-                                    class="form-select"
+                                    className="form-select"
                                 >
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
                                 </select>
                             </div>
 
-                            <div class="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between">
                                 <button className="btn btn-primary" type="submit">Editar</button>
                                 <button onClick={handleCancelar} type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                                     Cancelar
-                                </button>                            
+                                </button>
                             </div>
                         </form>
                     </div>
