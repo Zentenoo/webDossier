@@ -45,6 +45,8 @@ export const ServicioInfoPage = () => {
                 <p> <h4>Fecha de Inicio: </h4>{servicio.fechaInicio}</p>
                 <p> <h4>Fecha Fin: </h4>{servicio.fechaFin}</p>
                 <p> <h4>Descripcion: </h4>{servicio.descripcion}</p>
+                <p> <h4>Cupos: </h4>{servicio.cupo}</p>
+                <p> <h4>Precio: </h4>{servicio.precio}</p>
                 <h4>ServPlatos:</h4>
                 {servPlatos !== null && servPlatos.length > 0 && (
               <>

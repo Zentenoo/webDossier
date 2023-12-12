@@ -1,59 +1,128 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getServicioById } from "../helpers/helpergeServicioById";
+import { getPlato } from "../../Plato/helpers/getPlato";
 import { editServicio } from "../helpers/helpereditServicio";
+import { getAllPlato } from "../../Plato/helpers/getAllPlato";
+import { getAllServPlatosByServId } from "../ServPlato/helpers/helpergetAllServPlatosByServId";
+import '@yaireo/tagify/dist/tagify.css';
+import Tagify from '@yaireo/tagify';
 
 export const EditServicioPage = () => {
   const { id } = useParams();
   const [servicio, setServicio] = useState({});
   const [error, setError] = useState("");
+  const [platos, setPlatos] = useState([]);
+  const tagifyRef = useRef(null);
+  const [isTagifyInitialized, setIsTagifyInitialized] = useState(false);
+ 
+  const getServicioWithFechasById = async (id) => {
+    try {
+      const servicioResponse = await fetch(`http://localhost:3000/servicio/${id}`);
+      const platosResponse = await getAllServPlatosByServId(id);
 
-  const getServicioWithFechasById = (id) => {
-    return fetch(`http://localhost:3000/servicio/${id}`).then((response) => {
-      if (response.ok) {
-        return response.json();
+      console.log("Platos recibidos:", platosResponse);
+
+      if (servicioResponse.ok && Array.isArray(platosResponse)) {
+        const servicioData = await servicioResponse.json();
+        const platosSeleccionados = platosResponse.map((plato) => plato.platoid);
+
+        console.log("Platos seleccionados (IDs):", platosSeleccionados);
+
+        const platosNombres = await Promise.all(
+          platosSeleccionados.map(async (platoId) => {
+            const plato = await getPlato(platoId);
+            console.log(`Nombre del plato con ID ${platoId}:`, plato ? plato.nombre : 'No encontrado');
+            return plato ? plato.nombre : 'No encontrado';
+          })
+        );
+
+        console.log("Platos seleccionados (nombres):", platosNombres);
+
+        setServicio({
+          ...servicioData,
+          platos: platosNombres,
+        });
+
+        return servicioData;
       } else {
+        setError("Error al obtener el servicio o los platos asociados al servicio");
         return "error";
       }
-    });
+    } catch (error) {
+      console.error(`Error al obtener el servicio o los platos asociados al servicio: ${error.message}`);
+      setError("Error al obtener el servicio o los platos asociados al servicio");
+      return "error";
+    }
   };
 
-useEffect(() => {
-  getServicioWithFechasById(id).then((data) => {
-    if (data === "error") {
-      setError("Error al obtener el servicio");
-      return;
-    }
+  
+  useEffect(() => {
+    getAllPlato()
+      .then((platos) => {
+        if (Array.isArray(platos)) {
+          setPlatos(platos);
+          console.log("Platos obtenidos de la base de datos:", platos);
+        } else {
+          setError("Error al obtener la lista de platos");
+        }
+      })
+      .catch((error) => {
+        setError("Error al obtener la lista de platos");
+      });
+  }, []);
 
-    setServicio(data);
-  });
-}, [id]);
+  useEffect(() => {
+    if (tagifyRef.current && platos.length > 0 && !tagifyRef.current.tagify) {
+      const tagify = new Tagify(tagifyRef.current, {
+        whitelist: platos.map((plato) => plato.nombre),
+        dropdown: {
+          enabled: 1,
+        },
+        originalInputValue: servicio.platos || [], // Establecer los platos seleccionados como valor inicial
+      });
+  
+      tagifyRef.current.tagify = tagify;
+      setIsTagifyInitialized(true);
+    }
+  }, [platos, tagifyRef, servicio.platos]); // Agrega servicio.platos a la dependencia del efecto
+  
+
+  useEffect(() => {
+    getServicioWithFechasById(id);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setServicio({ ...servicio, [name]: value });
   };
+  
 
   const handleUpdateServicio = async () => {
+    const platosSeleccionados = tagifyRef.current.tagify.value.map((platoObj) => {
+      const plato = platos.find((p) => p.nombre === platoObj.value);
+      return plato ? plato.id : null;
+    }).filter(Boolean);
+
     const success = await editServicio(
-      id, // Pasa el ID del servicio que deseas editar
-      servicio.nombre, // Pasa los valores actuales de servicio
+      id,
+      servicio.nombre,
       servicio.descripcion,
       servicio.fechaInicio,
       servicio.fechaFin,
       servicio.cupo,
       servicio.precio,
       servicio.estado,
-      servicio.foto
+      servicio.foto,
+      platosSeleccionados
     );
 
     if (success) {
-      // Redirige a la página de lista de servicios después de la actualización
       window.location.href = "/servicios";
     } else {
       setError("Error al actualizar el servicio");
     }
   };
+  console.log("estado fina;",servicio)
 
   return (
     <div className="container">
@@ -137,6 +206,16 @@ useEffect(() => {
             <option value={true}>Visible</option>
           </select>
         </div>
+      <div className="form-group">
+        <label htmlFor="platos">Platos:</label>
+        <input
+          id="platos"
+          className="form-control"
+          placeholder="Agregar platos"
+          ref={tagifyRef}
+        />
+      </div>
+      <br />
       <button className="btn btn-primary" onClick={handleUpdateServicio}>
         Actualizar Servicio
       </button>

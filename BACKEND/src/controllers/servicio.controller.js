@@ -50,6 +50,7 @@ const getServicio = async (req, res, next) => {
         fechafin: servicio.fechafin.toISOString().split('T')[0],
         cupo: servicio.cupo,
         precio: servicio.precio,
+        estado: servicio.estado,
         foto: servicio.foto,
       };
   
@@ -135,7 +136,7 @@ const deleteServicio = async (req, res, next) => {
 }
 
 const editServicio = async (req, res) => {
-    const servicioId = req.params.servicioId; // Obtener el ID del servicio a editar desde los parámetros
+    const id = req.params.id; // Obtener el ID del servicio a editar desde los parámetros
     const servicio = req.body.servicio;
     const listaPlatos = req.body.listaPlatos;
   
@@ -158,7 +159,7 @@ const editServicio = async (req, res) => {
         servicio.precio,
         servicio.estado,
         servicio.foto,
-        servicioId
+        id
       ];
       await client.query(updateServicioQuery, updateServicioValues);
   
@@ -173,7 +174,7 @@ const editServicio = async (req, res) => {
         const insertServPlatoQuery = `
           INSERT INTO servplato (platoid, servicioid)
           VALUES ($1, $2)`;
-        const insertServPlatoValues = [platoid, servicioId];
+        const insertServPlatoValues = [platoid, id];
         await client.query(insertServPlatoQuery, insertServPlatoValues);
       }
   
@@ -187,7 +188,7 @@ const editServicio = async (req, res) => {
   
     res.status(200).json({
       success: true,
-      message: `Servicio con ID ${servicioId} editado exitosamente`
+      message: `Servicio con ID ${id} editado exitosamente`
     });
   };
   

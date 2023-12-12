@@ -12,6 +12,7 @@ export async function getServicioById(id) {
       fechaFin: response.data.fechafin,
       cupo: response.data.cupo,
       precio: response.data.precio,
+      estado: response.data.estado,
       foto: response.data.foto,
     };
     return servicio;

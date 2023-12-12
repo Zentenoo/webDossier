@@ -10,14 +10,16 @@ class PlatoModel {
     }
   }
 
+
   static async getPlatoById(id) {
     try {
       const plato = await pool.query('SELECT * FROM Plato WHERE id = $1', [id]);
-      return plato;
+      return plato.rows[0]; // Accede a la primera fila de resultados
     } catch (error) {
       throw error;
     }
   }
+
 
   static async createPlato(nombre, descripcion, estado, foto, tipoPlatoId) {
     try {
