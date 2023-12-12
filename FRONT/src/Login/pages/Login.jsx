@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {jwtDecode} from "jwt-decode"
 import { AuthContext } from '../../Context/Authcontext';
 export const Login = () => {
-  
-
-
+  const navigate = useNavigate()
   const [credentials, setCredentials] = useState({
     correo: '',
     contraseña: '',
@@ -21,18 +21,51 @@ export const Login = () => {
   };
 
   const { setIsLoggedIn } = useContext(AuthContext);
+
   useEffect(() => {
-    setIsLoggedIn(false);
+    //localStorage.clear()
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+        } else {
+          localStorage.setItem('token', token);
+          setIsLoggedIn(true);
+          navigate('/inicio');
+        }
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+      }
+    } else {
+      setIsLoggedIn(false);
+    }
   }, [setIsLoggedIn]);
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/login', credentials);
+      const token = response.data.token; 
       console.log(response.data)
-      setIsLoggedIn(true)
-      localStorage.setItem('isLoggedIn', 'true')
-      console.log("login",setIsLoggedIn)
-      window.location.href = '/inicio'
+
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+
+        setError('El token ha expirado');
+
+      } else {
+
+        localStorage.setItem('token', token);
+        setIsLoggedIn(true);
+
+      }
+      window.location.href = '/inicio';
     } catch (error) {
     if (error.response) {
       const { data, status } = error.response;
@@ -84,7 +117,7 @@ export const Login = () => {
           </div>
         </form>
         <div className="text-center mt-3">
-          <p>¿No tienes una cuenta? <a href="usuario/register">Regístrate aquí</a></p>
+          <p>¿No tienes una cuenta? <a href="/register">Regístrate aquí</a></p>
         </div>
       </div>
     </div>

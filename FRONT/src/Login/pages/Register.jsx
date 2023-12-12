@@ -1,6 +1,6 @@
-import { createUsuario } from "../helpers/petUsuario";
+import { createUsuario } from "../../Login/helpers/petLogin";
 import { useEffect, useState } from "react";
-export const UsuarioCrear = () => {
+export const Register = () => {
     const [usuarioData, setUsuarioData] = useState({
         nombre: "",
         contraseña: "",

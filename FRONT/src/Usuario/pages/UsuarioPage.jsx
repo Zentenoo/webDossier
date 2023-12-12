@@ -1,11 +1,9 @@
-import { UsuarioCrear } from "../components/UsuarioCrear";
 import { UsuariosList } from "../components/UsuarioList";
-import { Login } from "../components/Login";
 
 export const UsuariosPage = () => {
     return (
         <>
-            <Login />
+            <UsuariosList />
             {/* <div className="container">
                 <a className="btn btn-primary" href="/usuario/crear">Crear Usuario</a>
             </div> */}
