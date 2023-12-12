@@ -23,7 +23,7 @@ class ServicioModel {
         try {
             const result = await pool.query(
                 'INSERT INTO servicio (nombre, descripcion, fechainicio, fechafin, cupo,precio, fotos) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                [nombre, descripcion, fechaInicio, fechaFin, cupo,precio, fotos]
+                [nombre, descripcion, fechaInicio, fechaFin, cupo,precio, foto]
             );
             return result;
         } catch (error) {

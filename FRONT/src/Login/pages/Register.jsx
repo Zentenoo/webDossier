@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { createUsuario } from "../../Login/helpers/petLogin";
 import { useEffect, useState } from "react";
 export const Register = () => {

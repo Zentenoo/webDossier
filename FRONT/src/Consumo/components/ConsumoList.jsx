@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllConsumo } from "../helpers/getAllConsumo";
+import { deleteConsumo } from "../helpers/deleteConsumo";
+import { EditConsumo } from "../pages/EditConsumo";
 
 export const ConsumoList = () => {
     const [consumo, setConsumo] = useState([]);
@@ -20,11 +22,9 @@ export const ConsumoList = () => {
     }, []);
 
     const eliminar = async (id) => {
-        //await deleteConsumo(id);
+        await deleteConsumo(id);
         getListConsumo();
     };
-
-    console.log(consumo);
 
     return (
         <div className="container">
@@ -32,12 +32,6 @@ export const ConsumoList = () => {
                 {consumo.map((consumo) => (
                     <div className="col-lg-4 mb-4" key={consumo.id}>
                         <div className="card">
-                            {/* <img
-                                src={consumo.foto}
-                                className="card-img-top"
-                                style={{ width: "100%", height: "200px", objectFit: "cover" }}
-                                alt={consumo.nombre}
-                            /> */}
                             <div className="card-header bg-danger text-white" style={{ textAlign: 'center', fontSize: '15px' }}>
                                 <strong>{consumo.fecha}</strong>
                             </div>
@@ -61,9 +55,9 @@ export const ConsumoList = () => {
                                                         <h5 className="modal-title" id={`exampleModalLabel${consumo.id}e`} style={{ color: "black" }}>Editar Consumo "{consumo.id}"?</h5>
                                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    {/* <div className="modal-header d-flex justify-content-between">
+                                                    <div className="modal-header d-flex justify-content-between">
                                                         <EditConsumo consumo={consumo}/>
-                                                    </div> */}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

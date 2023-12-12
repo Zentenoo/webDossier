@@ -1,4 +1,5 @@
 import { ConsumoList } from "../components/ConsumoList"
+import { CreateConsumoPage } from "./CreateConsumoPage"
 
 
 export const ConsumoPage = () => {
@@ -19,7 +20,7 @@ export const ConsumoPage = () => {
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div className="modal-header d-flex justify-content-between">
-                    {/* <CreateConsumoPage/> */}
+                    <CreateConsumoPage/>
                   </div>
                 </div>
               </div>
