@@ -14,7 +14,6 @@ const loginUsuario = async (req, res, next) => {
         return res.status(401).json({ message: 'No tienes permisos' });
       }
     const token = jwtHandler.crearToken({ usuario });
-
     res.json({ token });
 
   } catch (error) {

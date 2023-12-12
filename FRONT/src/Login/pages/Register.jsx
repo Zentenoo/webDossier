@@ -1,8 +1,6 @@
-import { createUsuario } from "../helpers/petUsuario";
+import { createUsuario } from "../../Login/helpers/petLogin";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-export const UsuarioCrear = () => {
+export const Register = () => {
     const [usuarioData, setUsuarioData] = useState({
         nombre: "",
         contraseña: "",

@@ -15,10 +15,10 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/plato
 ###
-GET http://localhost:3000/usuario
+GET http://localhost:3000/servicio
 ###
 
-DELETE http://localhost:3000/plato/5
+DELETE http://localhost:3000/servicio/1
 
 ###
 # "estado":true,
