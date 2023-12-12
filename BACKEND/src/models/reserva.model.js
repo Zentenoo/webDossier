@@ -3,7 +3,7 @@ const pool = require('../db');
 class ReservaModel {
     static async getAllReservas() {
       try {
-        const allReservas = await pool.query("SELECT r.*, u.nombre AS nombre_usuario, s.nombre AS nombre_servicio FROM reserva AS r JOIN usuario AS u ON r.UsuarioId = u.id JOIN servicio AS s ON r.ServicioId = s.id ORDER BY r.fechareserva");
+        const allReservas = await pool.query("SELECT r.*, u.correo AS nombre_usuario, s.nombre AS nombre_servicio FROM reserva AS r JOIN usuario AS u ON r.UsuarioId = u.id JOIN servicio AS s ON r.ServicioId = s.id ORDER BY r.fechareserva");
         return allReservas;
       } catch (error) {
         throw error;

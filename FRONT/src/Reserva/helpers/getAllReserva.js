@@ -6,8 +6,8 @@ export async function getAllReserva() {
   if (resp.status === 200) {
     const reservas = resp.data.map((reserva) => ({
       id: reserva.id,
-      fechareserva: reserva.fechareserva,
-      fechaservicio: reserva.fechaservicio,
+      fechareserva: new Date(reserva.fechareserva).toLocaleDateString(),
+      fechaservicio: new Date(reserva.fechaservicio).toLocaleDateString(),
       cupo: reserva.cupo,
       observacion: reserva.observacion,
       estado: reserva.estado,

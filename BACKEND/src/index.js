@@ -9,6 +9,7 @@ const usuarioRoute=require('./routes/usuario.route')
 const productoRoute=require('./routes/producto.route')
 const servplatoRoute=require('./routes/servplato.route')
 const reservaRoute=require('./routes/reserva.route')
+const consumoRoute=require('./routes/consumo.route')
 const port=3000
 
 
@@ -25,6 +26,7 @@ app.use(servicio)
 app.use(usuarioRoute)
 app.use(servplatoRoute)
 app.use(reservaRoute)
+app.use(consumoRoute)
 
 app.use((err,req,res,next)=>{
     return res.json({
