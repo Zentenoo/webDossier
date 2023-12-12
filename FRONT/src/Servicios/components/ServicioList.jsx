@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllServicios } from "../helpers/getAllServicios";
 import { deleteServicio } from "../helpers/helperdeleteServicio";
-import { FaEdit, FaTrash, FaPlusCircle } from "react-icons/fa";
+import { FaEdit, FaTrash, FaInfoCircle } from "react-icons/fa";
 import format from 'date-fns/format';
 import esLocale from 'date-fns/locale/es';
 import { ToastContainer,toast } from 'react-toastify';
@@ -91,10 +91,14 @@ export const ServicioList = () => {
                   <Link to={`/servicios/edit/${servicio.id}`} className="btn btn-primary small">
                     <FaEdit /> Editar
                   </Link>
-                  <div>
-                    <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${servicio.id}`}>
+                  <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={`#exampleModal${servicio.id}`}>
                       <i className="bi bi-trash"></i> Eliminar
                     </button>
+                    <Link to={`/servicios/${servicio.id}`} className="btn btn-success small">
+                      <FaInfoCircle /> Info
+                    </Link>
+                  <div>
+                    
                     <div className="modal fade" id={`exampleModal${servicio.id}`} tabIndex="-1" aria-labelledby={`exampleModalLabel${servicio.id}`} aria-hidden="true">
                       <div className="modal-dialog">
                         <div className="modal-content">

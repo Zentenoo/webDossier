@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllServPlato, getServPlato, createServPlato, deleteServPlato, editServPlato } = require('../controllers/servplato.controller');
+const { getAllServPlato, getServPlato, createServPlato, deleteServPlato, editServPlato, getAllServPlatoByServId} = require('../controllers/servplato.controller');
 const router = Router();
 
 
@@ -13,5 +13,7 @@ router.post('/servplato', createServPlato)
 router.delete('/servplato/:id', deleteServPlato)
 
 router.put('/servplato/:id', editServPlato)
+
+router.get('/servplato/servicio/:id', getAllServPlatoByServId)
 
 module.exports = router;

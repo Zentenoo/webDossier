@@ -28,20 +28,36 @@ const getAllServicios = async (req, res, next) => {
 }
 
 
-const getServicio = async(req, res, next) => {
+const getServicio = async (req, res, next) => {
     try {
-        const { id } = req.params
-        const result = await pool.query("SELECT * FROM servicio WHERE id=$1", [id])
-        if (result.rows.length === 0) {
-            return res.status(404).json({
-                message: "El servicio no existe"
-            });
-        }
-        res.json(result.rows[0]);
-    } catch(error) {
-        next(error)
+      const { id } = req.params;
+      const result = await pool.query("SELECT * FROM servicio WHERE id=$1", [id]);
+  
+      if (result.rows.length === 0) {
+        return res.status(404).json({
+          message: "El servicio no existe"
+        });
+      }
+  
+      const servicio = result.rows[0];
+  
+      // Formatea las fechas
+      const servicioConFechasFormateadas = {
+        id: servicio.id,
+        nombre: servicio.nombre,
+        descripcion: servicio.descripcion,
+        fechainicio: servicio.fechainicio.toISOString().split('T')[0],
+        fechafin: servicio.fechafin.toISOString().split('T')[0],
+        cupo: servicio.cupo,
+        precio: servicio.precio,
+        foto: servicio.foto,
+      };
+  
+      res.json(servicioConFechasFormateadas);
+    } catch (error) {
+      next(error);
     }
-}
+  };
 
 const createServicio = async (req, res) => {
     const servicio = req.body.servicio;

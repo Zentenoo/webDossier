@@ -73,11 +73,32 @@ const editServPlato = async (req, res, next) => {
         next(error);
     }
 }
+const getAllServPlatoByServId = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        console.log('Valor de servicioid:', id);
+        
+        const result = await pool.query("SELECT platoid FROM servplato WHERE servicioid = $1", [id]);
+        console.log('Resultados de la consulta:', result.rows);
+        
+        const platos = result.rows.map(row => {
+            return {
+                platoid: row.platoid
+            };
+        });
+        
+        res.json(platos);
+      } catch (error) {
+        next(error);
+      }
+    }
+
 
 module.exports = {
     getAllServPlato,
     getServPlato,
     createServPlato,
     deleteServPlato,
-    editServPlato
+    editServPlato,
+    getAllServPlatoByServId
 };
