@@ -3,7 +3,7 @@ const pool = require('../db');
 class PlatoModel {
   static async getAllPlatos() {
     try {
-      const allPlatos = await pool.query("SELECT p.*,t.nombre tipoplato FROM plato p, tipoplato t WHERE p.TipoPlatoId=t.id ORDER BY 1");
+      const allPlatos = await pool.query("SELECT p.*,t.nombre tipoplato FROM plato p, tipoplato t WHERE p.tipoplatoid=t.id ORDER BY 1");
       return allPlatos;
     } catch (error) {
       throw error;
